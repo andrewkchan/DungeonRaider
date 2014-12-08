@@ -1,0 +1,4 @@
+#include "Entity.h"
+
+
+int Entity::s_nextID = 0;
