@@ -2,7 +2,6 @@
 #define GAMESTATE_H
 
 
-#include <SDL.h>
 #include <iostream>
 #include "ActorManager.h"
 
@@ -22,10 +21,7 @@ class GameState
 	*/
 private:
 
-	SDL_Event latestEvent; //the latest input
 
-	SDL_Window* window;
-	SDL_Renderer* renderer;
 	const int SCREEN_HEIGHT;
 	const int SCREEN_WIDTH;
 
@@ -37,8 +33,7 @@ public:
 		SCREEN_WIDTH(640), SCREEN_HEIGHT(480)
 	{
 		//default constructor
-		window = 0;
-		renderer = 0;
+
 	}
 	~GameState()
 	{
@@ -51,7 +46,7 @@ public:
 
 	//todo: pause and resume functions
 
-	void getInput(Uint32 curr_frame_time); //get user input and handle it
+	void getInput(unsigned int curr_frame_time); //get user input and handle it
 	void update(double frameTime); //updates the game using the timestep between frames, frameTime
 	void draw(); //draw the current frame
 };

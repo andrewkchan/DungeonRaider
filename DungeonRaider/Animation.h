@@ -44,7 +44,7 @@ public:
 		delete[] _sprites;
 		_sprites = 0;
 	}
-	SDL_Texture* getCurrentFrame(double timeSinceStart); //get the current frame of the animation based on time passed since animation started playing
+	//SDL_Texture* getCurrentFrame(double timeSinceStart); //get the current frame of the animation based on time passed since animation started playing
 
 
 };

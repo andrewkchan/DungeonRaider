@@ -1,7 +1,6 @@
 #ifndef TEXTUREPTR_H
 #define TEXTUREPTR_H
 
-#include <SDL.h>
 #include <iostream>
 
 
@@ -29,42 +28,8 @@ class TexturePtr
 	
 	
 	*/
-private:
-	SDL_Texture* _texture;
-	unsigned int* _count;
-public:
-	TexturePtr() //default constructor for arrays only
-	{
-		_texture = 0;
-		_count = 0;
-	}
-	TexturePtr(SDL_Renderer* renderer, SDL_Surface* surface)
-	{
-		_texture = SDL_CreateTextureFromSurface(renderer, surface);
-		_count = new unsigned int(1);
-		if (_texture == 0)
-		{
-			std::cout << "SDL_CreateTextureFromSurface error:" << SDL_GetError() << std::endl;
-		}
-	}
-	TexturePtr(const TexturePtr& sourceTexturePtr) //copy constructor
-	{
-		_texture = sourceTexturePtr._texture;
-		++*(_count);
-	}
-	~TexturePtr() //destructor
-	{
-		--*(_count);
-		if (*(_count) == 0) //if, after deleting this TexturePtr, there are no more references to the texture
-		{
-			SDL_DestroyTexture(_texture);
-			delete _count;
-		}
-		_texture = 0;
-		_count = 0;
-	}
 
-	SDL_Texture* get() { return _texture; }
+//now that we are switching from SDL to SMFL, we'll see if we really need this class or not
 
 
 

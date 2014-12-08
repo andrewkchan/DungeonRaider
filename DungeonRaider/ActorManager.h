@@ -54,7 +54,7 @@ public:
 	void instantiateSkeleton();
 	void pushActor(Actor newActor);
 	void update(double frameTime); //update all actors in the current frame
-	void draw(SDL_Renderer* renderer); //draw all actors in the current frame
+	void draw(); //draw all actors in the current frame
 	int getNumActors() { return numActors; }
 };
 

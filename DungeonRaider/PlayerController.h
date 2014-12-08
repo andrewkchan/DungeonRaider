@@ -8,13 +8,13 @@
 class PlayerController : Controller
 {
 private:
-	Uint32 lastCommandTime;
+	unsigned int lastCommandTime;
 public:
-	PlayerController() : Controller(), lastCommandTime(SDL_GetTicks())
+	PlayerController() : Controller(), lastCommandTime(0)
 	{
 		//default constructor
 	}
-	virtual void handleInput(Uint8* keyStateArray);
+	virtual void handleInput();
 
 };
 

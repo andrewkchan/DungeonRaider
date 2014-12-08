@@ -39,7 +39,7 @@ void ActorManager::instantiateSkeleton()
 {
 	pushActor(*skeletonPrototype);
 }
-void ActorManager::draw(SDL_Renderer* renderer)
+void ActorManager::draw()
 {
 
 }
