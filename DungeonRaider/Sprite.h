@@ -6,12 +6,13 @@
 class Sprite
 {
 private:
-	TexturePtr _texture; //a smart pointer to an SDL_Texture*, handles deleting it n' stuff
+	//sf::Texture _texure;
+	//TexturePtr _texture; //a smart pointer to an SDL_Texture*, handles deleting it n' stuff
 public:
 	Sprite(){} //default constructor
 	Sprite(const Sprite& sourceSprite) //copy constructor
 	{
-		_texture = sourceSprite._texture;
+		//_texture = sourceSprite._texture;
 	}
 	~Sprite()
 	{
@@ -26,7 +27,7 @@ public:
 		{
 			return;
 		}
-		_texture = sourceSprite._texture;
+		//_texture = sourceSprite._texture;
 	}
 };
 

@@ -1,46 +1,42 @@
 
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Config.hpp>
+#include <SFML/Graphics.hpp>
 #include "GameState.h"
 
 
 /*
-Dungeon Raider, a 2D procedurally generated action-RPG.
+Dungeon Raider, an isometric 2D procedurally generated action-RPG.
 
 */
 
-/*
+
 int main(int argc, char* args[])
 {
 	bool bRunGame = true;
+	sf::Clock clock;
+	sf::Time deltaTime = clock.getElapsedTime(); //the total amount of time elapsed since last clock measurement
 	//const double DT = 0.01; //constant time-step with which to update physics (seconds)
-	double frameTime = 0.0; //time between frames (seconds)
-	unsigned int prev_frame_tick; //MILLISECONDS passed between last frame and game start
-	unsigned int curr_frame_tick = 0; //MILLISECONDS passed since game start
-
 	
 
 	GameState game;
 	game.init();
 	while (bRunGame)
 	{
-		prev_frame_tick = curr_frame_tick;
-		curr_frame_tick = 0;
-		frameTime = (curr_frame_tick - prev_frame_tick) / 1000.0;
+		deltaTime = clock.restart(); //gets the time for the previous frame to render. Also restarts the clock to zero.
 
-		game.getInput(curr_frame_tick);
-		game.update(frameTime);
+		game.getInput(clock.getElapsedTime().asSeconds());
+		game.update(deltaTime.asSeconds());
 		game.draw();
 	}
 	game.close();
 
 	return 0;
 }
-*/
 
 
-
-
-#include <SFML/Graphics.hpp>
-
+/*
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
@@ -63,3 +59,4 @@ int main()
 
 	return 0;
 }
+*/
