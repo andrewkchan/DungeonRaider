@@ -1,7 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "Vector2.h"
+#include "EVector2.h"
 
 
 class Entity

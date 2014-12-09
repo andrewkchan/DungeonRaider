@@ -2,7 +2,7 @@
 #define ACTOR_H
 
 #include "Entity.h"
-#include "Vector3.h"
+#include "EVector3.h"
 #include "Attributes.h"
 #include "PhysicalState.h"
 
@@ -31,7 +31,7 @@ public:
 	
 	Actor() : attributes(0), controller(0)
 	{}; //default constructor;
-	Actor(const Attributes* inputAttributes, Vector3 inputPos = Vector3()) :
+	Actor(const Attributes* inputAttributes, EVector3 inputPos = EVector3()) :
 		attributes(inputAttributes), controller(0)
 	{
 		//constructor with attributes param
@@ -66,9 +66,9 @@ public:
 	const Attributes& getAttributes() { return *(attributes); }
 
 	//functions to change protected stuff
-	void addVelocity(Vector3 inputVelocity);
+	void addVelocity(EVector3 inputVelocity);
 	void addHealth(int inputHealth);
-	void changePos(Vector3 inputPos);
+	void changePos(EVector3 inputPos);
 	void changeIsPoisoned(bool inputIsPoisoned);
 
 	//tick function

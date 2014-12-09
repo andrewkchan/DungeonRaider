@@ -5,7 +5,7 @@ void Actor::changeIsPoisoned(bool inputIsPoisoned)
 {
 	physicalState.isPoisoned = inputIsPoisoned;
 }
-void Actor::changePos(Vector3 inputPos)
+void Actor::changePos(EVector3 inputPos)
 {
 	physicalState.pos = inputPos;
 }
@@ -13,7 +13,7 @@ void Actor::addHealth(int inputHealth)
 {
 	physicalState.health += inputHealth;
 }
-void Actor::addVelocity(Vector3 inputVelocity)
+void Actor::addVelocity(EVector3 inputVelocity)
 {
 	physicalState.velocity += inputVelocity;
 }

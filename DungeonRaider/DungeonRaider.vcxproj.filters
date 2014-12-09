@@ -45,12 +45,6 @@
     <ClCompile Include="GameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Vector2\Vector2\Vector2.cpp">
-      <Filter>Source Files\VarTypes</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
-      <Filter>Source Files\VarTypes</Filter>
-    </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
@@ -84,22 +78,22 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Vector2\Vector2\EVector2.cpp">
+      <Filter>Source Files\VarTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="EVector3.cpp">
+      <Filter>Source Files\VarTypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Vector2\Vector2\Vector2.h">
-      <Filter>Source Files\VarTypes</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Source Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="Actor.h">
       <Filter>Source Files\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>Source Files\VarTypes</Filter>
     </ClInclude>
     <ClInclude Include="Command.h">
       <Filter>Source Files\Controller</Filter>
@@ -148,6 +142,12 @@
     </ClInclude>
     <ClInclude Include="TexturePtr.h">
       <Filter>Source Files\Components\SpriteDependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Vector2\Vector2\EVector2.h">
+      <Filter>Source Files\VarTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="EVector3.h">
+      <Filter>Source Files\VarTypes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
