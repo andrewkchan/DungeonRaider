@@ -1,11 +1,11 @@
 #include "Controller.h"
 
-void Controller::linkActor(Actor* inputActor)
+void Controller::linkCharacter(Character* inputCharacter)
 {
-	_actor = inputActor;
+	_Character = inputCharacter;
 }
-void Controller::unlinkActor()
+void Controller::unlinkCharacter()
 {
-	_actor->controller = 0; //set actor's reference to this to null
-	_actor = 0; //don't delete the actor object, leave game to deal with it
+	_Character->controller = 0; //set Character's reference to this to null
+	_Character = 0; //don't delete the Character object, leave game to deal with it
 }

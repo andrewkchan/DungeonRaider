@@ -9,12 +9,12 @@ class Animation
 	/*
 	Class Animation
 
-	This class is a sequence of sprites. Each ActorStateMachine contains an Animation object for each ActorState.
+	This class is a sequence of sprites. Each CharacterStateMachine contains an Animation object for each CharacterState.
 	
-	When the game wants to draw an Actor, it calls window.draw() on the actor in the scene graph.
-	The actor looks up its state in its ActorStateMachine, which returns the ActorState, and the ActorState then
+	When the game wants to draw an Character, it calls window.draw() on the Character in the scene graph.
+	The Character looks up its state in its CharacterStateMachine, which returns the CharacterState, and the CharacterState then
 	returns an Animation object reference, which finally returns the current frame of the animation to draw
-	using getCurrentFrame(). The actor is then drawn according to its own sf::Transform coordinates.
+	using getCurrentFrame(). The Character is then drawn according to its own sf::Transform coordinates.
 	
 	
 	*/

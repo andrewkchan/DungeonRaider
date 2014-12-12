@@ -1,6 +1,6 @@
 #include "MoveForwardCommand.h"
 
-void MoveForwardCommand::execute(Actor& actor)
+void MoveForwardCommand::execute(Character& Character)
 {
-	actor.addVelocity(EVector3(0.0, actor.getAttributes().maxMoveSpeed, 0.0));
+	Character.addVelocity(EVector3(0.0, Character.getAttributes().maxMoveSpeed, 0.0));
 }

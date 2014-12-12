@@ -1,6 +1,6 @@
 #include "MoveBackwardCommand.h"
 
-void MoveBackwardCommand::execute(Actor& actor)
+void MoveBackwardCommand::execute(Character& Character)
 {
-	actor.addVelocity(EVector3(0.0, -1.0*actor.getAttributes().maxMoveSpeed, 0.0));
+	Character.addVelocity(EVector3(0.0, -1.0*Character.getAttributes().maxMoveSpeed, 0.0));
 }

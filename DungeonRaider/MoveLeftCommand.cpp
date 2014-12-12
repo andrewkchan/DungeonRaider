@@ -1,6 +1,6 @@
 #include "MoveLeftCommand.h"
 
-void MoveLeftCommand::execute(Actor& actor)
+void MoveLeftCommand::execute(Character& Character)
 {
-	actor.addVelocity(EVector3(-1.0*actor.getAttributes().maxMoveSpeed, 0.0, 0.0));
+	Character.addVelocity(EVector3(-1.0*Character.getAttributes().maxMoveSpeed, 0.0, 0.0));
 }

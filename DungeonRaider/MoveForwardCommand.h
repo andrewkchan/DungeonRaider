@@ -9,7 +9,7 @@ class MoveForwardCommand : Command
 	/*
 	Class MoveForwardCommand
 
-	This command moves the selected actor forward.
+	This command moves the selected Character forward.
 	
 	*/
 private:
@@ -20,7 +20,7 @@ public:
 	}
 	~MoveForwardCommand(){} //destructor
 
-	virtual void execute(Actor& actor);
+	virtual void execute(Character& Character);
 
 };
 

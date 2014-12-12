@@ -9,7 +9,7 @@ class MoveLeftCommand : Command
 	/*
 	Class MoveLeftCommand
 
-	This command moves the selected actor left.
+	This command moves the selected Character left.
 
 	*/
 private:
@@ -20,7 +20,7 @@ public:
 	}
 	~MoveLeftCommand(){} //destructor
 
-	virtual void execute(Actor& actor);
+	virtual void execute(Character& Character);
 
 };
 

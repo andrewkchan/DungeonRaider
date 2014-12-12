@@ -9,7 +9,7 @@ class MoveBackwardCommand : Command
 	/*
 	Class MoveBackwardCommand
 
-	This command moves the selected actor backward.
+	This command moves the selected Character backward.
 
 	*/
 private:
@@ -20,7 +20,7 @@ public:
 	}
 	~MoveBackwardCommand(){} //destructor
 
-	virtual void execute(Actor& actor);
+	virtual void execute(Character& Character);
 
 };
 

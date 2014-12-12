@@ -1,7 +1,7 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#include "Actor.h"
+#include "Character.h"
 
 
 class Command
@@ -9,14 +9,14 @@ class Command
 	/*
 	Class Command
 
-	This class describes a command that is then interpreted by an actor.
+	This class describes a command that is then interpreted by an Character.
 	
 	
 	*/
 private:
 public:
 	virtual ~Command(){};
-	virtual void execute(Actor& actor) = 0;
+	virtual void execute(Character& Character) = 0;
 };
 
 

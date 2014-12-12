@@ -2,7 +2,7 @@
 
 void GameState::loadMedia()
 {
-	actorManager = new ActorManager();
+	_characterManager = new CharacterManager();
 
 }
 

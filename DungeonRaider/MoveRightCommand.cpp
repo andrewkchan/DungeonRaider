@@ -1,6 +1,6 @@
 #include "MoveRightCommand.h"
 
-void MoveRightCommand::execute(Actor& actor)
+void MoveRightCommand::execute(Character& Character)
 {
-	actor.addVelocity(EVector3(actor.getAttributes().maxMoveSpeed, 0.0, 0.0));
+	Character.addVelocity(EVector3(Character.getAttributes().maxMoveSpeed, 0.0, 0.0));
 }

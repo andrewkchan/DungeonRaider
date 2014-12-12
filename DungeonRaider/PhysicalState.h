@@ -6,7 +6,7 @@
 struct PhysicalState
 {
 	/*
-	This struct defines all the temporary, mutable, instance characteristics of an Actor.
+	This struct defines all the temporary, mutable, instance characteristics of an Character.
 	*/
 	PhysicalState(int inputHealth = 0, bool inputIsPoisoned = false, EVector3 inputPos = EVector3(), EVector3 inputVelocity = EVector3())
 		: 

@@ -57,9 +57,6 @@
     <ClCompile Include="MoveForwardCommand.cpp">
       <Filter>Source Files\Controller\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Source Files\Entity</Filter>
-    </ClCompile>
     <ClCompile Include="MoveBackwardCommand.cpp">
       <Filter>Source Files\Controller\Commands</Filter>
     </ClCompile>
@@ -72,9 +69,6 @@
     <ClCompile Include="JumpCommand.cpp">
       <Filter>Source Files\Controller\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="ActorManager.cpp">
-      <Filter>Source Files\Entity</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
@@ -84,15 +78,18 @@
     <ClCompile Include="EVector3.cpp">
       <Filter>Source Files\VarTypes</Filter>
     </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterManager.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Source Files\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor.h">
       <Filter>Source Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="Command.h">
@@ -134,9 +131,6 @@
     <ClInclude Include="Material.h">
       <Filter>Source Files\World</Filter>
     </ClInclude>
-    <ClInclude Include="ActorManager.h">
-      <Filter>Source Files\Entity</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicalState.h">
       <Filter>Source Files\Entity\PhysicalInfo</Filter>
     </ClInclude>
@@ -148,6 +142,15 @@
     </ClInclude>
     <ClInclude Include="EVector3.h">
       <Filter>Source Files\VarTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Source Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterManager.h">
+      <Filter>Source Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Source Files\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

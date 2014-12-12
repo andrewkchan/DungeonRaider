@@ -2,39 +2,39 @@
 #define CONTROLLER_H
 
 
-#include "Actor.h"
+#include "Character.h"
 
 class Controller
 {
 	/*
 	Class Controller
 
-	This class defines the framework for handling input and passing that input to an actor.
-	Controllers can be thought of as the "brain" of an actor. Whereas the actor defines
+	This class defines the framework for handling input and passing that input to an Character.
+	Controllers can be thought of as the "brain" of an Character. Whereas the Character defines
 	all the physical properties of something, the controller defines how commands change or use
 	those physical properties.
 
-	A controller can "possess" one actor at a time in order to control it, and can also "unpossess"
-	that actor.
+	A controller can "possess" one Character at a time in order to control it, and can also "unpossess"
+	that Character.
 
 	Controllers do not have to handle human input; they can also serve as the framework for AI commands
-	to an actor.
+	to an Character.
 	
 	*/
 protected:
-	Actor* _actor;
+	Character* _Character;
 public:
-	Controller() : _actor(0)
+	Controller() : _Character(0)
 	{
 		//default constructor
 	}
 	virtual ~Controller()
 	{
 		//destructor
-		_actor = 0; //do NOT delete the actor, leave the game to deal with it
+		_Character = 0; //do NOT delete the Character, leave the game to deal with it
 	}
-	void linkActor(Actor* inputActor); //possess an actor
-	void unlinkActor(); //un-possess an actor
+	void linkCharacter(Character* inputCharacter); //possess an Character
+	void unlinkCharacter(); //un-possess an Character
 	
 	virtual void handleInput();
 };

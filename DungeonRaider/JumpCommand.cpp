@@ -1,6 +1,6 @@
 #include "JumpCommand.h"
 
-void JumpCommand::execute(Actor& actor)
+void JumpCommand::execute(Character& Character)
 {
-	actor.addVelocity(EVector3(0.0, 0.0, actor.getAttributes().maxJumpSpeed));
+	Character.addVelocity(EVector3(0.0, 0.0, Character.getAttributes().maxJumpSpeed));
 }

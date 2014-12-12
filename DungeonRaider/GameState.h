@@ -6,9 +6,9 @@
 #include <SFML/Config.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "ActorManager.h"
+#include "CharacterManager.h"
 
-class ActorManager; //forward declaration of dependencies
+class CharacterManager; //forward declaration of dependencies
 
 class GameState
 {
@@ -29,7 +29,7 @@ private:
 	const int SCREEN_WIDTH;
 	bool verticalSyncEnabled;
 
-	ActorManager* actorManager; //don't know actorManager's size b/c it's dynamic, so must be on heap
+	CharacterManager* _characterManager; //don't know CharacterManager's size b/c it's dynamic, so must be on heap
 
 	void loadMedia(); //load all entities n' such
 public:
