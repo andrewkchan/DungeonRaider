@@ -1,7 +1,7 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include "Entity.h"
+#include "Actor.h"
 #include "EVector3.h"
 #include "Attributes.h"
 #include "PhysicalState.h"
@@ -11,13 +11,13 @@
 class Controller;
 
 
-class Character : Entity
+class Character : Actor
 {
 	/*
 	Class Character
 
 	This class represents everything that has a real, ingame position in ingame space.
-	It inherits from Entity.
+	It inherits from Actor, which inherits from Entity.
 	
 	
 	*/
