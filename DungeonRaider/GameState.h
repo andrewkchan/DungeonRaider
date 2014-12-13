@@ -30,7 +30,7 @@ private:
 	bool verticalSyncEnabled;
 
 	CharacterManager* _characterManager; //don't know CharacterManager's size b/c it's dynamic, so must be on heap
-
+	
 	void loadMedia(); //load all entities n' such
 public:
 	GameState() :

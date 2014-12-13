@@ -42,6 +42,25 @@ public:
 			_sprites = 0;
 		}
 	}
+	Animation(const Animation& srcAnimation) //copy constructor
+	{
+		_numSprites = srcAnimation._numSprites;
+		_animTime = srcAnimation._animTime;
+		if (_numSprites) //if an initial array of sprites is provided
+		{
+			//copy the provided array into the member array of sprites
+
+			_sprites = new sf::Sprite[_numSprites];
+			for (int i = 0; i < _numSprites; i++)
+			{
+				_sprites[i].setTexture(*(srcAnimation._sprites[i].getTexture()));
+			}
+		}
+		else
+		{
+			_sprites = 0;
+		}
+	}
 	~Animation()
 	{
 		delete[] _sprites;
@@ -49,6 +68,40 @@ public:
 	}
 	sf::Sprite& getCurrentFrame(double timeSinceStart) const; //get the current frame of the animation based on time passed since animation started playing
 
+	void operator=(const Animation& srcAnimation)
+	{
+		//check for self-assignment
+		if (this == &srcAnimation)
+		{
+			return;
+		}
+
+		//if not self assigning
+
+
+		//first, delete what we have
+		delete[] _sprites;
+		_sprites = 0; 
+
+
+		//now copy everything
+		_numSprites = srcAnimation._numSprites;
+		_animTime = srcAnimation._animTime;
+		if (_numSprites) //if an initial array of sprites is provided
+		{
+			//copy the provided array into the member array of sprites
+
+			_sprites = new sf::Sprite[_numSprites];
+			for (int i = 0; i < _numSprites; i++)
+			{
+				_sprites[i].setTexture(*(srcAnimation._sprites[i].getTexture()));
+			}
+		}
+		else
+		{
+			_sprites = 0;
+		}
+	}
 
 };
 
