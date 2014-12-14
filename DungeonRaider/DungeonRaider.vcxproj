@@ -91,7 +91,9 @@
     <ClCompile Include="MoveRightCommand.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="EVector3.cpp" />
+    <ClCompile Include="State.cpp" />
     <ClCompile Include="StateController.cpp" />
+    <ClCompile Include="Transition.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Vector2\Vector2\EVector2.h" />
@@ -120,6 +122,8 @@
     <ClInclude Include="StateController.h" />
     <ClInclude Include="TexturePtr.h" />
     <ClInclude Include="EVector3.h" />
+    <ClInclude Include="Transition.h" />
+    <ClInclude Include="TransitionRule.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

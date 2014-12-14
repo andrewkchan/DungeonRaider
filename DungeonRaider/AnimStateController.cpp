@@ -2,5 +2,5 @@
 
 sf::Sprite& AnimStateController::getCurrStateSprite()
 {
-	return stateStack.back().OnDraw();
+	return possibleStates[indexOfCurrentState].OnDraw();
 }

@@ -15,7 +15,6 @@ class AnimState : public State
 protected:
 	Animation anim; //the animation that should be played while in this state, allocated on stack so don't worry about deletion
 
-	virtual void checkConditions();
 public:
 	AnimState() {} //default constructor
 	AnimState(const Animation& srcAnim) //copy constructor
@@ -24,7 +23,6 @@ public:
 	}
 	virtual ~AnimState() {}
 
-	virtual void OnUpdate(double frameTime);
 	virtual sf::Sprite& OnDraw();
 
 };

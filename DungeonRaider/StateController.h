@@ -20,12 +20,14 @@ class StateController
 	*/
 
 
+protected:
+	int indexOfCurrentState; //the state that the actor is currently in
+	std::string nextStateName; //the name of the next state
 private:
-	std::vector<State> stateStack; //a pushdown automata of states, or a stack of states where we can push and pop states
 	std::vector<State> possibleStates; //a dynamic array of all possible states
 public:
 	StateController() {} //default constructor
-	virtual ~StateController() { stateStack.clear(); possibleStates.clear(); }
+	virtual ~StateController() { possibleStates.clear(); }
 
 
 	//change the state based on the time since last frame and actor's current physical state

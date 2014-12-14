@@ -14,11 +14,10 @@ class AnimStateController : public StateController
 	
 	*/
 private:
-	std::vector<AnimState> stateStack; //a pushdown automata of states, or a stack of states where we can push and pop states
 	std::vector<AnimState> possibleStates; //a dynamic array of all possible states
 public:
 	AnimStateController() {} //default constructor
-	virtual ~AnimStateController() { stateStack.clear(); possibleStates.clear(); }
+	virtual ~AnimStateController() { possibleStates.clear(); }
 
 	virtual sf::Sprite& getCurrStateSprite();
 };

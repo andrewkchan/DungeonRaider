@@ -102,6 +102,12 @@
     <ClCompile Include="AnimStateController.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Transition.cpp">
+      <Filter>Source Files\Components\States</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Source Files\Components\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -173,9 +179,6 @@
     <ClInclude Include="StateController.h">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="AnimState.h">
       <Filter>Source Files\Components\States</Filter>
     </ClInclude>
@@ -184,6 +187,15 @@
     </ClInclude>
     <ClInclude Include="PhysicalStateCompare.h">
       <Filter>Source Files\Components\States\StateDependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Source Files\Components\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Transition.h">
+      <Filter>Source Files\Components\States</Filter>
+    </ClInclude>
+    <ClInclude Include="TransitionRule.h">
+      <Filter>Source Files\Components\States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
