@@ -22,8 +22,8 @@ class Character : Actor
 	
 	*/
 protected:
-	const Attributes* attributes; //intrinsic physical attributes, ex: max movement speed
-	PhysicalState physicalState; //mutable physical characteristics for each Character instance
+	const Attributes* attributes; //intrinsic physical attributes, ex: max movement speed (shared object)
+	//TODO: add a smart pointer/deleter for Attributes?
 
 	Controller* controller; //note: controller and Character both contain pointers to each other
 
@@ -31,8 +31,8 @@ public:
 	
 	Character() : attributes(0), controller(0)
 	{}; //default constructor;
-	Character(const Attributes* inputAttributes, EVector3 inputPos = EVector3()) :
-		attributes(inputAttributes), controller(0)
+	Character(const Attributes* inputAttributes, glm::vec4 inputPos = glm::vec4(0.0f,0.0f,0.0f,0.0f)) :
+		attributes(inputAttributes), controller(0), Actor(inputPos)
 	{
 		//constructor with attributes param
 		physicalState.health = attributes->maxHealth;
@@ -66,13 +66,10 @@ public:
 	const Attributes& getAttributes() { return *(attributes); }
 
 	//functions to change protected stuff
-	void addVelocity(EVector3 inputVelocity);
 	void addHealth(int inputHealth);
-	void changePos(EVector3 inputPos);
-	void changeIsPoisoned(bool inputIsPoisoned);
 
 	//tick function
-	void update(double frameTime); //todo: make this
+	virtual void update(double frameTime); //todo: make this
 
 
 

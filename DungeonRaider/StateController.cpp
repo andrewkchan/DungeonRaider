@@ -1,10 +1,10 @@
 #include "StateController.h"
 
-void StateController::updateState(double frameTime)
+void StateController::updateState(double frameTime, const PhysicalState& physicalState)
 {
 	stateStack.back().OnUpdate(frameTime); //update the topmost state according to frameTime
 }
-sf::Sprite& StateController::drawState()
+void StateController::addPossibleState(const State& srcState)
 {
-	return stateStack.back().OnDraw();
+	possibleStates.push_back(srcState);
 }

@@ -1,21 +1,23 @@
 #ifndef PHYSICALSTATE_H
 #define PHYSICALSTATE_H
 
-#include "EVector3.h"
+#include <glm.hpp>
 
 struct PhysicalState
 {
 	/*
-	This struct defines all the temporary, mutable, instance characteristics of an Character.
+	This struct defines all the temporary, mutable, instance characteristics of an Actor.
 	*/
-	PhysicalState(int inputHealth = 0, bool inputIsPoisoned = false, EVector3 inputPos = EVector3(), EVector3 inputVelocity = EVector3())
+	PhysicalState(
+		int inputHealth = 0,
+		glm::vec4 inputPos = glm::vec4(0.0f,0.0f,0.0f,1.0f), glm::vec4 inputVelocity = glm::vec4(0.0f,0.0f,0.0f,0.0f)
+		)
 		: 
-		health(0), isPoisoned(false), pos(EVector3()), velocity(EVector3()) {} //default constructor
+		health(0), pos(inputPos), velocity(inputVelocity) {} //default constructor
 
 	int health;
-	bool isPoisoned;
-	EVector3 pos;
-	EVector3 velocity;
+	glm::vec4 pos;
+	glm::vec4 velocity;
 };
 
 

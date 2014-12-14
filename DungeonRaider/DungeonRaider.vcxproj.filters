@@ -40,6 +40,9 @@
     <Filter Include="Source Files\Components\States">
       <UniqueIdentifier>{e2d4bd30-4dd7-4289-bace-d92c06d7e2f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components\States\StateDependencies">
+      <UniqueIdentifier>{51644e1c-4a0c-43bc-ad0a-7797f2152ce1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -95,6 +98,9 @@
     </ClCompile>
     <ClCompile Include="AnimState.cpp">
       <Filter>Source Files\Components\States</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimStateController.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +178,12 @@
     </ClInclude>
     <ClInclude Include="AnimState.h">
       <Filter>Source Files\Components\States</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimStateController.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicalStateCompare.h">
+      <Filter>Source Files\Components\States\StateDependencies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

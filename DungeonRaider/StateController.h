@@ -4,6 +4,7 @@
 
 #include "AnimState.h"
 #include <vector>
+#include "PhysicalState.h"
 
 
 class StateController
@@ -20,13 +21,18 @@ class StateController
 
 
 private:
-	std::vector<AnimState> stateStack; //a pushdown automata of states, or a stack of states where we can push and pop states
-	std::vector<AnimState> possibleStates; //a dynamic array of all possible states
+	std::vector<State> stateStack; //a pushdown automata of states, or a stack of states where we can push and pop states
+	std::vector<State> possibleStates; //a dynamic array of all possible states
 public:
 	StateController() {} //default constructor
+	virtual ~StateController() { stateStack.clear(); possibleStates.clear(); }
 
-	void updateState(double frameTime); //change the state based on the time since last frame
-	sf::Sprite& drawState();
+
+	//change the state based on the time since last frame and actor's current physical state
+	virtual void updateState(double frameTime, const PhysicalState& physicalState); 
+
+	virtual void addPossibleState(const State& srcState);
+
 };
 
 
