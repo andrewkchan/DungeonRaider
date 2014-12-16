@@ -1,6 +1,6 @@
 #include "AnimStateController.h"
 
-sf::Sprite& AnimStateController::getCurrStateSprite()
+sf::Sprite& AnimStateController::getStateSprite(int indexOfCurrentState)
 {
 	return possibleStates[indexOfCurrentState].OnDraw();
 }

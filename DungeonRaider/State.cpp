@@ -24,7 +24,7 @@ void State::addTransitionToState(std::string transitionToThis)
 	//value = (an empty Transition object)
 	possibleTransitions.insert(std::pair<std::string, Transition>(transitionToThis, Transition()));
 }
-void State::addTransitionRuleToStateTransition(std::string transitionToThis, TransitionRule rule)
+void State::setTransitionToState(std::string transitionToThis, Transition newTransition)
 {
 	//loop through transition map, looking for the specified state
 	currTransition = possibleTransitions.begin();
@@ -32,8 +32,8 @@ void State::addTransitionRuleToStateTransition(std::string transitionToThis, Tra
 	{
 		if (currTransition->first == transitionToThis)
 		{
-			//found the state, now add the transition rule
-			currTransition->second.addTransitionRule(rule);
+			//found the state, now add the transition
+			currTransition->second = newTransition;
 			return;
 		}
 		currTransition++;

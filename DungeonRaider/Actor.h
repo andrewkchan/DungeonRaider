@@ -24,9 +24,16 @@ class Actor : Entity
 	*/
 protected:
 	PhysicalState physicalState; //mutable physical characteristics for each Actor instance
+	
 public:
 	Actor(glm::vec4 inputPos = glm::vec4(0.0f,0.0f,0.0f,0.0f)) : Entity(), physicalState(0, inputPos)
 	{} //default constructor
+
+	/*
+	Copy constructor
+	Note: This is often called when ActorManager pushes a new Actor on, since it must resize its container of actors
+	*/
+	Actor(const Actor& srcActor) : Entity(), physicalState(srcActor.physicalState) {}
 	virtual ~Actor() 
 	{} //destructor
 
@@ -35,6 +42,8 @@ public:
 
 	virtual void update(double frameTime); //tick function
 	//todo: DO TICK FUNCTION!!!
+
+	Actor& operator=(const Actor& srcActor);
 };
 
 

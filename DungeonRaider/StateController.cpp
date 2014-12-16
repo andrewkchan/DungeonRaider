@@ -1,6 +1,6 @@
 #include "StateController.h"
 
-void StateController::updateState(double frameTime, const PhysicalState& physicalState)
+int StateController::updateState(double frameTime, const PhysicalState& physicalState, int indexOfCurrentState)
 {
 	//update the topmost state according to frameTime
 	//also check if we change states
@@ -13,12 +13,14 @@ void StateController::updateState(double frameTime, const PhysicalState& physica
 		{
 			if (possibleStates[i].getName() == nextStateName)
 			{
-				indexOfCurrentState = i; //change to the next state
-				possibleStates[indexOfCurrentState].OnEntry();
-				return; //then exit the loop
+				//change to the next state
+				int nextState = i;
+				possibleStates[nextState].OnEntry();
+				return nextState; //then exit the loop
 			}
 		}
 	}
+	return indexOfCurrentState;
 }
 void StateController::addPossibleState(const State& srcState)
 {

@@ -44,9 +44,9 @@ public:
 	*/
 	virtual void addTransitionToState(std::string transitionToThis);
 	/*
-	Adds a transition rule to a previously added transition to the state with name transitionToThis.
+	Sets the transition object mapped to another state to the specified transition
 	*/
-	virtual void addTransitionRuleToStateTransition(std::string transitionToThis, TransitionRule rule);
+	virtual void setTransitionToState(std::string transitionToThis, Transition newTransition);
 
 	//return the name of the current state
 	virtual std::string getName() const { return stateName; }

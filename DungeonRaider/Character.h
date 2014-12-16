@@ -5,6 +5,7 @@
 #include "EVector3.h"
 #include "Attributes.h"
 #include "PhysicalState.h"
+#include "Controller.h"
 
 //forward declarations of dependencies
 //class Command;
@@ -37,11 +38,18 @@ public:
 		//constructor with attributes param
 		physicalState.health = attributes->maxHealth;
 	}
-	Character(const Character& Character) //copy constructor
+	/*
+	Copy-constructor
+	Note: This is called often when CharacterManager expands, since it must reallocate Character objects to new memory
+	*/
+	Character(const Character& Character)
 	{
 		attributes = Character.attributes;
 		physicalState = Character.physicalState;
 		controller = Character.controller;
+		
+		//repoint the controller at this character, since most likely the old character will be destroyed
+		controller->linkCharacter(this); 
 	}
 	virtual ~Character()
 	{

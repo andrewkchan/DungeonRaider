@@ -19,7 +19,7 @@ public:
 	AnimStateController() {} //default constructor
 	virtual ~AnimStateController() { possibleStates.clear(); }
 
-	virtual sf::Sprite& getCurrStateSprite();
+	virtual sf::Sprite& getStateSprite(int indexOfCurrentState);
 };
 
 

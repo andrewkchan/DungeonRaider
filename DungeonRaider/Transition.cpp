@@ -12,3 +12,17 @@ bool Transition::canTransition()
 	}
 	return true;
 }
+
+Transition& Transition::operator=(const Transition& srcTransition)
+{
+	//check for self-assignment
+	if (this == &srcTransition)
+	{
+		return *this;
+	}
+
+	//copy the vector of transition rules
+	//don't worry, this copies actual data, not just the reference, so should be safe
+	transitionRules = srcTransition.transitionRules; 
+	return *this;
+}

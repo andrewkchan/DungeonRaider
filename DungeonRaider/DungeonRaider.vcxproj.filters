@@ -90,22 +90,22 @@
     <ClCompile Include="CharacterManager.cpp">
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="StateController.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Actor.cpp">
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="AnimState.cpp">
       <Filter>Source Files\Components\States</Filter>
     </ClCompile>
-    <ClCompile Include="AnimStateController.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Transition.cpp">
       <Filter>Source Files\Components\States</Filter>
     </ClCompile>
     <ClCompile Include="State.cpp">
+      <Filter>Source Files\Components\States</Filter>
+    </ClCompile>
+    <ClCompile Include="StateController.cpp">
+      <Filter>Source Files\Components\States</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimStateController.cpp">
       <Filter>Source Files\Components\States</Filter>
     </ClCompile>
   </ItemGroup>
@@ -176,17 +176,8 @@
     <ClInclude Include="Actor.h">
       <Filter>Source Files\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="StateController.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="AnimState.h">
       <Filter>Source Files\Components\States</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimStateController.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicalStateCompare.h">
-      <Filter>Source Files\Components\States\StateDependencies</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
       <Filter>Source Files\Components\States</Filter>
@@ -196,6 +187,18 @@
     </ClInclude>
     <ClInclude Include="TransitionRule.h">
       <Filter>Source Files\Components\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Comparer.h">
+      <Filter>Source Files\Components\States\StateDependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="StateController.h">
+      <Filter>Source Files\Components\States</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimStateController.h">
+      <Filter>Source Files\Components\States</Filter>
+    </ClInclude>
+    <ClInclude Include="StateComponent.h">
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

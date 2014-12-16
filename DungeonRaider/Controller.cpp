@@ -1,4 +1,5 @@
 #include "Controller.h"
+#include "Character.h"
 
 void Controller::linkCharacter(Character* inputCharacter)
 {

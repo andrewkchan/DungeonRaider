@@ -2,7 +2,10 @@
 #define CONTROLLER_H
 
 
-#include "Character.h"
+
+
+//forward declaration of dependencies
+class Character;
 
 class Controller
 {

@@ -1,6 +1,8 @@
 #ifndef TRANSITIONRULE_H
 #define TRANSITIONRULE_H
 
+#include "Comparer.h"
+
 class TransitionRule
 {
 	/*
@@ -16,14 +18,7 @@ private:
 	int _intComparer;
 	bool _boolComparer;
 	void* _toCompare; //the value of the actor that will be compared
-	enum Comparer{
-		EQUALS,
-		NOT_EQUALS,
-		LESS_THAN,
-		GREATER_THAN,
-		LESS_THAN_EQUALS,
-		GREATER_THAN_EQUALS
-	} comparisonOperator;
+	Comparer comparisonOperator;
 	enum Type{
 		BOOLEAN,
 		INTEGER,
