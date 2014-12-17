@@ -1,10 +1,10 @@
 #include "Transition.h"
 
-bool Transition::canTransition()
+bool Transition::canTransition(Actor& actor)
 {
 	for (std::size_t i = 0; i < transitionRules.size(); i++)
 	{
-		if (!transitionRules[i].isSatisfied())
+		if (!transitionRules[i].isSatisfied(actor))
 		{
 			//if any of the transition rules are not satisfied, return false
 			return false;

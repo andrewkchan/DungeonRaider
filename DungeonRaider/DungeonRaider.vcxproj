@@ -105,12 +105,14 @@
     <ClInclude Include="Attributes.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Comparer.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="CharacterManager.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="JumpCommand.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="MotionComponent.h" />
     <ClInclude Include="MoveBackwardCommand.h" />
     <ClInclude Include="MoveForwardCommand.h" />
     <ClInclude Include="MoveLeftCommand.h" />

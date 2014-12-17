@@ -43,6 +43,9 @@
     <Filter Include="Source Files\Components\States\StateDependencies">
       <UniqueIdentifier>{51644e1c-4a0c-43bc-ad0a-7797f2152ce1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components\GraphicsDependencies">
+      <UniqueIdentifier>{ec7c5a23-63a1-492c-80f2-3d809afb4e7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -50,9 +53,6 @@
     </ClCompile>
     <ClCompile Include="GameState.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>Source Files\Controller</Filter>
@@ -108,6 +108,9 @@
     <ClCompile Include="AnimStateController.cpp">
       <Filter>Source Files\Components\States</Filter>
     </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files\Components\GraphicsDependencies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -121,12 +124,6 @@
     </ClInclude>
     <ClInclude Include="Controller.h">
       <Filter>Source Files\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="MoveForwardCommand.h">
       <Filter>Source Files\Controller\Commands</Filter>
@@ -198,6 +195,18 @@
       <Filter>Source Files\Components\States</Filter>
     </ClInclude>
     <ClInclude Include="StateComponent.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Source Files\Components\GraphicsDependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Source Files\Components\GraphicsDependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="MotionComponent.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
   </ItemGroup>

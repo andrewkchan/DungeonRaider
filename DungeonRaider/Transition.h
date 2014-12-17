@@ -43,7 +43,7 @@ public:
 
 
 	//returns whether the actor can transition or not according to the transition rules.
-	bool canTransition();
+	bool canTransition(Actor& actor);
 
 	Transition& operator=(const Transition& srcTransition);
 };

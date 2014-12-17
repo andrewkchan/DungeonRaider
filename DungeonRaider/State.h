@@ -36,7 +36,7 @@ public:
 	if actor is to transition to another state, return the name of the next state
 	if the actor cannot transition to any other states, return the name of this state
 	*/
-	virtual std::string OnUpdate(double frameTime);
+	virtual std::string OnUpdate(Actor& actor, double frameTime);
 
 	/*
 	Adds a state that this state can transition to. 

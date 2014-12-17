@@ -1,12 +1,12 @@
 #include "State.h"
 
-std::string State::OnUpdate(double frameTime)
+std::string State::OnUpdate(Actor& actor, double frameTime)
 {
 	//check transitions to see if the actor should change state
 	currTransition = possibleTransitions.begin();
 	while (currTransition != possibleTransitions.end())
 	{
-		if (currTransition->second.canTransition())
+		if (currTransition->second.canTransition(actor))
 		{
 			//if we can transition to any state in the possibleTransitions map, return the name of that state
 			return currTransition->first;

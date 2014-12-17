@@ -1,10 +1,10 @@
 #include "StateController.h"
 
-int StateController::updateState(double frameTime, const PhysicalState& physicalState, int indexOfCurrentState)
+int StateController::updateState(double frameTime, Actor& actor, int indexOfCurrentState)
 {
 	//update the topmost state according to frameTime
 	//also check if we change states
-	nextStateName = possibleStates[indexOfCurrentState].OnUpdate(frameTime);
+	nextStateName = possibleStates[indexOfCurrentState].OnUpdate(actor, frameTime);
 	if (nextStateName != possibleStates[indexOfCurrentState].getName())
 	{
 		//if the current state reports that the state we should change to is not the current state's name,

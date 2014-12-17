@@ -33,7 +33,7 @@ public:
 
 	//change the state based on the time since last frame and actor's current state (and physical state)
 	//returns the index of the state we change to
-	virtual int updateState(double frameTime, const PhysicalState& physicalState, int indexOfCurrentState); 
+	virtual int updateState(double frameTime, Actor& actor, int indexOfCurrentState); 
 
 	virtual void addPossibleState(const State& srcState);
 

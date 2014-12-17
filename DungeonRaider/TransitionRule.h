@@ -2,6 +2,8 @@
 #define TRANSITIONRULE_H
 
 #include "Comparer.h"
+#include "Component.h"
+#include "Actor.h"
 
 class TransitionRule
 {
@@ -14,10 +16,20 @@ class TransitionRule
 	
 	*/
 private:
-	float _floatComparer;
-	int _intComparer;
-	bool _boolComparer;
-	void* _toCompare; //the value of the actor that will be compared
+	void* _compareToThis; //the value that some attribute of the actor must satisfactorily compare to
+
+	//NOTE: the below are POINTERS TO MEMBER FUNCTIONS (not pointers to regular functions)
+	//this means that they hold the relative memory address of a function
+	//and can therefore be used to call member functions of class instances
+	int (Component::*_intFunctionToCompare)(); //points to int getter for a component (variable name="intFunctionToCompare")
+	bool (Component::*_boolFunctionToCompare)(); //points to bool getter for a component (var name="boolFunctionToCompare")
+	float (Component::*_floatFunctionToCompare)(); //points to float getter for a component (var name="floatFunctionToCompare")
+	
+	//NOTE: the below is a POINTER TO A MEMBER OBJECT
+	//this way the pointer to the member function knows WHICH DAMN COMPONENT of the actor to call the function from
+	//again, this holds relative memory addresses, and can be used to access instance members
+	Component (Actor::*_component);
+
 	Comparer comparisonOperator;
 	enum Type{
 		BOOLEAN,
@@ -28,113 +40,171 @@ private:
 public:
 	/*
 	Constructor for a rule that compares floats.
-	float* toCompare is the actor's float value that will be compared.
+	Component (Actor::*component) is a pointer to the component from which the member function getterToCompare() will be called.
+	float (Component::*getterToCompare)() is a pointer to the getter function that returns the value to be compared.
 	TransitionRule::Comparer is an enum that denotes the comparison type.
 	float compareToThis is the float value that the comparison must satisfy.
 	@example:
-	TransitionRule(actor.getSpeed(), GREATER_THAN_EQUALS, 1.2) creates a transition rule
+	TransitionRule(&Actor::MotionComponent, &MotionComponent::getSpeed(), GREATER_THAN_EQUALS, 1.2) creates a transition rule
 	where the actor's speed must be greater than or equal to 1.2 in order to satisfy the rule.
 	*/
-	TransitionRule(float* toCompare, Comparer inputOperator, float compareToThis) :
+	TransitionRule(Component (Actor::*component), float (Component::*getterToCompare)(), 
+		Comparer inputOperator, float compareToThis) :
 		comparisonOperator(inputOperator), comparisonType(FLOAT)
 	{
-		_toCompare = toCompare;
-		_floatComparer = compareToThis;
+		_component = component;
+		_floatFunctionToCompare = getterToCompare;
+		_compareToThis = new float(compareToThis);
 	}
 	/*
 	Constructor for a rule that compares ints.
-	int* toCompare is the actor's float value that will be compared.
+	Component (Actor::*component) is a pointer to the component from which the member function getterToCompare() will be called.
+	int (Component::*getterToCompare)() is a pointer to the getter function that returns the value to be compared.
 	TransitionRule::Comparer is an enum that denotes the comparison type.
 	int compareToThis is the int value that the comparison must satisfy.
 	@example:
-	TransitionRule(actor.getHealth(), LESS_THAN_EQUALS, 20) creates a transition rule
+	TransitionRule(&Actor::HealthComponent, &HealthComponent::getHealth(), LESS_THAN_EQUALS, 20) creates a transition rule
 	where the actor's health must be less than or equal to 20 in order to satisfy the rule.
 	*/
-	TransitionRule(int* toCompare, Comparer inputOperator, int compareToThis) :
+	TransitionRule(Component (Actor::*component), int (Component::*getterToCompare)(), 
+		Comparer inputOperator, int compareToThis) :
 		comparisonOperator(inputOperator), comparisonType(INTEGER)
 	{
-		_toCompare = toCompare;
-		_intComparer = compareToThis;
+		_component = component;
+		_intFunctionToCompare = getterToCompare;
+		_compareToThis = new int(compareToThis);
 	}
 	/*
 	Constructor for a rule that compares bools.
-	bool* toCompare is the actor's bool value that will be compared.
+	Component (Actor::*component) is a pointer to the component from which the member function getterToCompare() will be called.
+	bool (Component::*getterToCompare)() is a pointer to the getter function that returns the value to be compared.
 	bool compareToThis is the bool value that the comparison must satisfy.
 	@example:
-	TransitionRule(actor.getIsOnGround(), false) creates a transition rule
+	TransitionRule(&Actor::MotionComponent, &MotionComponent::getIsOnGround(), false) creates a transition rule
 	where the actor must be off the ground in order to satisfy the rule.
 	*/
-	TransitionRule(bool* toCompare, bool compareToThis) :
+	TransitionRule(Component (Actor::*component), bool (Component::*getterToCompare)(), 
+		bool compareToThis) :
 		comparisonType(BOOLEAN)
 	{
-		_toCompare = toCompare;
-		_boolComparer = compareToThis;
+		_component = component;
+		_boolFunctionToCompare = getterToCompare;
+		_compareToThis = new bool(compareToThis);
 	}
 
 	/*
-	Returns whether the transition rule has been satisfied or not.
+	Returns whether the transition rule has been satisfied or not for the specified actor.
 	*/
-	bool isSatisfied()
+	bool isSatisfied(Actor& actor)
 	{
 		//VERY UGLY - probably redo this whole system?
-		switch(comparisonType)
+		switch (comparisonType)
 		{
 		case BOOLEAN:
-			return *(static_cast<bool*>(_toCompare)) && _boolComparer;
+		{
+			//dereferences the actor's component, then calls _boolFunctionToCompare() on the dereferenced component
+			bool valToCompare = (
+				actor.*(_component).*(_boolFunctionToCompare)
+				)();
+
+			return *(static_cast<bool*>(_compareToThis)) && valToCompare;
 			break;
+		}
 		case INTEGER:
+		{
+			//dereferences the actor's component, then calls _intFunctionToCompare() on the dereferenced component
+			int valToCompare = (
+				actor.*(_component).*(_intFunctionToCompare)
+				)();
 			switch (comparisonOperator)
 			{
+				
 			case EQUALS:
-				return *(static_cast<int*>(_toCompare)) == _intComparer;
+			{
+				return *(static_cast<int*>(_compareToThis)) == valToCompare;
 				break;
+			}
 			case NOT_EQUALS:
-				return *(static_cast<int*>(_toCompare)) != _intComparer;
+			{
+				return *(static_cast<int*>(_compareToThis)) != valToCompare;
 				break;
+			}
 			case GREATER_THAN:
-				return *(static_cast<int*>(_toCompare)) > _intComparer;
+			{
+				return *(static_cast<int*>(_compareToThis)) > valToCompare;
 				break;
+			}
 			case LESS_THAN:
-				return *(static_cast<int*>(_toCompare)) < _intComparer;
+			{
+				return *(static_cast<int*>(_compareToThis)) < valToCompare;
 				break;
+			}
 			case GREATER_THAN_EQUALS:
-				return *(static_cast<int*>(_toCompare)) >= _intComparer;
+			{
+				return *(static_cast<int*>(_compareToThis)) >= valToCompare;
 				break;
+			}
 			case LESS_THAN_EQUALS:
-				return *(static_cast<int*>(_toCompare)) <= _intComparer;
+			{
+				return *(static_cast<int*>(_compareToThis)) <= valToCompare;
 				break;
+			}
 			default:
+			{
 				//throw an error!
 				return false;
 				break;
 			}
-		case FLOAT:
-			switch (comparisonOperator)
-			{
-			case EQUALS:
-				return *(static_cast<float*>(_toCompare)) == _floatComparer;
-				break;
-			case NOT_EQUALS:
-				return *(static_cast<float*>(_toCompare)) != _floatComparer;
-				break;
-			case GREATER_THAN:
-				return *(static_cast<float*>(_toCompare)) > _floatComparer;
-				break;
-			case LESS_THAN:
-				return *(static_cast<float*>(_toCompare)) < _floatComparer;
-				break;
-			case GREATER_THAN_EQUALS:
-				return *(static_cast<float*>(_toCompare)) >= _floatComparer;
-				break;
-			case LESS_THAN_EQUALS:
-				return *(static_cast<float*>(_toCompare)) <= _floatComparer;
-				break;
-			default:
-				//throw an error!
-				return false;
-				break;
 			}
 		}
+		case FLOAT:
+		{
+			//dereferences the actor component, then calls floatFunctionToCompare() on the dereferenced component
+			float valToCompare = (
+				actor.*(_component).*(_floatFunctionToCompare)
+				)();
+			switch (comparisonOperator)
+			{
+			case EQUALS:
+			{
+				return *(static_cast<float*>(_compareToThis)) == valToCompare;
+				break;
+			}
+			case NOT_EQUALS:
+			{
+				return *(static_cast<float*>(_compareToThis)) != valToCompare;
+				break;
+			}
+			case GREATER_THAN:
+			{
+				return *(static_cast<float*>(_compareToThis)) > valToCompare;
+				break;
+			}
+			case LESS_THAN:
+			{
+				return *(static_cast<float*>(_compareToThis)) < valToCompare;
+				break;
+			}
+			case GREATER_THAN_EQUALS:
+			{
+				return *(static_cast<float*>(_compareToThis)) >= valToCompare;
+				break;
+			}
+			case LESS_THAN_EQUALS:
+			{
+				return *(static_cast<float*>(_compareToThis)) <= valToCompare;
+				break;
+			}
+			default:
+			{
+				//throw an error!
+				return false;
+				break;
+			}
+			}
+		} //end of case:FLOAT
+
+		}//end of overall switch
 		return false;
 	}
 };

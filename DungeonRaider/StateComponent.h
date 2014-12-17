@@ -15,6 +15,7 @@ class StateComponent
 	*/
 private:
 	int _indexOfCurrentState; //the index in StateController's vector of states that the actor is currently in
+	Actor* _actor; //the actor that owns the StateComponent
 	StateController* _stateController; //the class containing all possible states for this actor
 public:
 	StateComponent(StateController* controller = 0) : _stateController(controller)
@@ -27,7 +28,7 @@ public:
 		_stateController = controller;
 		//leave the game to deal with the old state controller
 	}
-	void update() {}
+	void update(double frameTime) { _stateController->updateState(frameTime, *_actor, _indexOfCurrentState); }
 };
 
 
