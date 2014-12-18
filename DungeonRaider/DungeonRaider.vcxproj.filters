@@ -209,5 +209,8 @@
     <ClInclude Include="Component.h">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="AnimStateComponent.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

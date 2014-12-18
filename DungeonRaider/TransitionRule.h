@@ -16,7 +16,10 @@ class TransitionRule
 	
 	*/
 private:
-	void* _compareToThis; //the value that some attribute of the actor must satisfactorily compare to
+	//the value that some attribute of the actor must satisfactorily compare to
+	int _compareToThisInt;
+	bool _compareToThisBool;
+	float _compareToThisFloat;
 
 	//NOTE: the below are POINTERS TO MEMBER FUNCTIONS (not pointers to regular functions)
 	//this means that they hold the relative memory address of a function
@@ -38,6 +41,33 @@ private:
 	} comparisonType; //keeps track of how to dereference the void pointer, _toCompare
 	TransitionRule() {} //private constructor b/c transition rules must be constructed with parameters
 public:
+	TransitionRule(const TransitionRule& srcRule) //copy constructor
+	{
+		comparisonType = srcRule.comparisonType;
+		comparisonOperator = srcRule.comparisonOperator;
+
+		switch (comparisonType)
+		{
+		case BOOLEAN:
+			_compareToThisBool = srcRule._compareToThisBool;
+			_boolFunctionToCompare = srcRule._boolFunctionToCompare;
+			break;
+		case INTEGER:
+			_compareToThisInt = srcRule._compareToThisInt;
+			_intFunctionToCompare = srcRule._intFunctionToCompare;
+			break;
+		case FLOAT:
+			_compareToThisFloat = srcRule._compareToThisFloat;
+			_floatFunctionToCompare = srcRule._floatFunctionToCompare;
+			break;
+		default:
+			//this is a problem.
+			break;
+		}
+
+		_component = srcRule._component;
+	}
+
 	/*
 	Constructor for a rule that compares floats.
 	Component (Actor::*component) is a pointer to the component from which the member function getterToCompare() will be called.
@@ -54,7 +84,7 @@ public:
 	{
 		_component = component;
 		_floatFunctionToCompare = getterToCompare;
-		_compareToThis = new float(compareToThis);
+		_compareToThisFloat = compareToThis;
 	}
 	/*
 	Constructor for a rule that compares ints.
@@ -72,7 +102,7 @@ public:
 	{
 		_component = component;
 		_intFunctionToCompare = getterToCompare;
-		_compareToThis = new int(compareToThis);
+		_compareToThisInt = compareToThis;
 	}
 	/*
 	Constructor for a rule that compares bools.
@@ -89,7 +119,7 @@ public:
 	{
 		_component = component;
 		_boolFunctionToCompare = getterToCompare;
-		_compareToThis = new bool(compareToThis);
+		_compareToThisBool = compareToThis;
 	}
 
 	/*
@@ -107,7 +137,7 @@ public:
 				actor.*(_component).*(_boolFunctionToCompare)
 				)();
 
-			return *(static_cast<bool*>(_compareToThis)) && valToCompare;
+			return _compareToThisBool && valToCompare;
 			break;
 		}
 		case INTEGER:
@@ -121,32 +151,32 @@ public:
 				
 			case EQUALS:
 			{
-				return *(static_cast<int*>(_compareToThis)) == valToCompare;
+				return _compareToThisInt == valToCompare;
 				break;
 			}
 			case NOT_EQUALS:
 			{
-				return *(static_cast<int*>(_compareToThis)) != valToCompare;
+				return _compareToThisInt != valToCompare;
 				break;
 			}
 			case GREATER_THAN:
 			{
-				return *(static_cast<int*>(_compareToThis)) > valToCompare;
+				return _compareToThisInt > valToCompare;
 				break;
 			}
 			case LESS_THAN:
 			{
-				return *(static_cast<int*>(_compareToThis)) < valToCompare;
+				return _compareToThisInt < valToCompare;
 				break;
 			}
 			case GREATER_THAN_EQUALS:
 			{
-				return *(static_cast<int*>(_compareToThis)) >= valToCompare;
+				return _compareToThisInt >= valToCompare;
 				break;
 			}
 			case LESS_THAN_EQUALS:
 			{
-				return *(static_cast<int*>(_compareToThis)) <= valToCompare;
+				return _compareToThisInt <= valToCompare;
 				break;
 			}
 			default:
@@ -167,32 +197,32 @@ public:
 			{
 			case EQUALS:
 			{
-				return *(static_cast<float*>(_compareToThis)) == valToCompare;
+				return _compareToThisFloat == valToCompare;
 				break;
 			}
 			case NOT_EQUALS:
 			{
-				return *(static_cast<float*>(_compareToThis)) != valToCompare;
+				return _compareToThisFloat != valToCompare;
 				break;
 			}
 			case GREATER_THAN:
 			{
-				return *(static_cast<float*>(_compareToThis)) > valToCompare;
+				return _compareToThisFloat > valToCompare;
 				break;
 			}
 			case LESS_THAN:
 			{
-				return *(static_cast<float*>(_compareToThis)) < valToCompare;
+				return _compareToThisFloat < valToCompare;
 				break;
 			}
 			case GREATER_THAN_EQUALS:
 			{
-				return *(static_cast<float*>(_compareToThis)) >= valToCompare;
+				return _compareToThisFloat >= valToCompare;
 				break;
 			}
 			case LESS_THAN_EQUALS:
 			{
-				return *(static_cast<float*>(_compareToThis)) <= valToCompare;
+				return _compareToThisFloat <= valToCompare;
 				break;
 			}
 			default:

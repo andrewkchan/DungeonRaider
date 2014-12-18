@@ -99,6 +99,7 @@
     <ClInclude Include="..\..\Vector2\Vector2\EVector2.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="AnimState.h" />
+    <ClInclude Include="AnimStateComponent.h" />
     <ClInclude Include="AnimStateController.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Animation.h" />
