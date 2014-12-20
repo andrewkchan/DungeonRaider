@@ -1,6 +1,10 @@
 #ifndef ANIMSTATECOMPONENT_H
 #define ANIMSTATECOMPONENT_H
 
+//fwd declarations
+class AnimStateController;
+class Actor;
+
 
 #include "AnimStateController.h"
 
@@ -14,30 +18,18 @@ class AnimStateComponent
 	This class encapsulates actor interaction with its current drawable state.
 	*/
 private:
+	static AnimStateController s_defaultController;
+
 	bool isVisible;
 	int _indexOfCurrentState;
 	AnimStateController* _stateController;
 public:
-	AnimStateComponent(AnimStateController* stateController) :
-		_stateController(stateController), isVisible(true)
-	{
-		_indexOfCurrentState = _stateController->getIndexOfDefaultState();
-	}
-	AnimStateComponent(const AnimStateComponent& animStateComponent)
-	{
-		isVisible = animStateComponent.isVisible;
-		_stateController = animStateComponent._stateController;
-		_indexOfCurrentState = animStateComponent._indexOfCurrentState;
-	}
+	AnimStateComponent(AnimStateController* stateController = 0);
+	AnimStateComponent(const AnimStateComponent& animStateComponent);
 
-	void setStateController(AnimStateController* controller)
-	{
-		_stateController = controller;
-		_indexOfCurrentState = _stateController->getIndexOfDefaultState();
-		//leave the game to deal with the old AnimStateController
-	}
-	void update(double frameTime, Actor* actor) { _stateController->updateState(frameTime, *actor, _indexOfCurrentState); }
-	sf::Sprite& onDraw() { _stateController->getStateSprite(_indexOfCurrentState); }
+	void setStateController(AnimStateController* controller);
+	void update(double frameTime, Actor* actor);
+	sf::Sprite& onDraw();
 };
 
 

@@ -12,7 +12,7 @@
 class Controller;
 
 
-class Character : Actor
+class Character : public Actor
 {
 	/*
 	Class Character

@@ -1,11 +1,15 @@
 #ifndef TRANSITIONRULE_H
 #define TRANSITIONRULE_H
 
-#include "Comparer.h"
-#include "Component.h"
-#include "Actor.h"
 
-class TransitionRule
+//fwd declarations
+class Actor;
+
+#include "Comparer.h"
+#include "TransitionRuleBase.h"
+
+template<class ComponentType, typename compareType>
+class TransitionRule : public TransitionRuleBase
 {
 	/*
 	Class TransitionRule
@@ -14,31 +18,37 @@ class TransitionRule
 	undergo a state transition. The transitions that a state holds must always
 	have at least 1 transition rule.
 	
+	Since TransitionRule is a template, we cannot store it normally in an std::vector. We have to make
+	it inherit a non-templated base class (TransitionRuleBase), and make an std::vector of pointers to 
+	that base class.
 	*/
 private:
 	//the value that some attribute of the actor must satisfactorily compare to
-	int _compareToThisInt;
-	bool _compareToThisBool;
-	float _compareToThisFloat;
+	compareType _compareToThis;
 
-	//NOTE: the below are POINTERS TO MEMBER FUNCTIONS (not pointers to regular functions)
-	//this means that they hold the relative memory address of a function
+
+	//NOTE: the below is a POINTER TO MEMBER FUNCTION (not pointer to regular function)
+	//this means that it holds the relative memory address of a function
 	//and can therefore be used to call member functions of class instances
-	int (Component::*_intFunctionToCompare)(); //points to int getter for a component (variable name="intFunctionToCompare")
-	bool (Component::*_boolFunctionToCompare)(); //points to bool getter for a component (var name="boolFunctionToCompare")
-	float (Component::*_floatFunctionToCompare)(); //points to float getter for a component (var name="floatFunctionToCompare")
+	//NOTE2: The typedef defines the POINTER TO MEMBER FUNCTION of class ComponentType,
+	//with return type compareType as "ComponentGetterPtr" (yes, the grammar is very confusing)
+	typedef compareType(ComponentType::*ComponentGetterPtr)();
+
+	//a pointer to the getter function for the actor value we want to compare
+	//for example, we can assign this to &HealthComponent::getHealth
+	//and we can then attach _getter to some instance of a HealthComponent
+	//and call it to get the actor's health.
+	ComponentGetterPtr _getterPtr;
 	
 	//NOTE: the below is a POINTER TO A MEMBER OBJECT
 	//this way the pointer to the member function knows WHICH DAMN COMPONENT of the actor to call the function from
 	//again, this holds relative memory addresses, and can be used to access instance members
-	Component (Actor::*_component);
+	//NOTE2: The typedef defines a pointer to actor's member of type ComponentType as "ComponentPtr"
+	typedef ComponentType(Actor::*ComponentPtr);
+
+	ComponentPtr _componentPtr;
 
 	Comparer comparisonOperator;
-	enum Type{
-		BOOLEAN,
-		INTEGER,
-		FLOAT
-	} comparisonType; //keeps track of how to dereference the void pointer, _toCompare
 	TransitionRule() {} //private constructor b/c transition rules must be constructed with parameters
 public:
 	TransitionRule(const TransitionRule& srcRule) //copy constructor
@@ -67,175 +77,94 @@ public:
 
 		_component = srcRule._component;
 	}
+	virtual ~TransitionRule()
+	{
+		//don't try to delete pointers to members!
+		_getterPtr = 0;
+		_componentPtr = 0;
+	}
 
 	/*
-	Constructor for a rule that compares floats.
-	Component (Actor::*component) is a pointer to the component from which the member function getterToCompare() will be called.
-	float (Component::*getterToCompare)() is a pointer to the getter function that returns the value to be compared.
+	Constructor for a rule that compares values of type compareType from classes of type ComponentType.
+	ComponentPtr is a pointer to the component from which the member function getterToCompare() will be called.
+	ComponentGetterPtr is a pointer to the getter function that returns the value to be compared.
 	TransitionRule::Comparer is an enum that denotes the comparison type.
-	float compareToThis is the float value that the comparison must satisfy.
+	compareType compareToThis is the value that the comparison must satisfy.
+	===
 	@example:
-	TransitionRule(&Actor::MotionComponent, &MotionComponent::getSpeed(), GREATER_THAN_EQUALS, 1.2) creates a transition rule
-	where the actor's speed must be greater than or equal to 1.2 in order to satisfy the rule.
+	===
+	TransitionRule<MotionComponent, float>(&Actor::MotionComponent, &MotionComponent::getSpeed(), GREATER_THAN_EQUALS, 1.2) 
+	creates a transition rule where the actor's speed must be greater than or equal to 1.2 in order to satisfy the rule.
+
+	----NOTE----
+	The types being compared must have comparison operators ==,!=,<=,>=,<,> defined for them, otherwise
+	TransitionRule::isSatisfied() will produce undefined behaviour.
 	*/
-	TransitionRule(Component (Actor::*component), float (Component::*getterToCompare)(), 
-		Comparer inputOperator, float compareToThis) :
-		comparisonOperator(inputOperator), comparisonType(FLOAT)
-	{
-		_component = component;
-		_floatFunctionToCompare = getterToCompare;
-		_compareToThisFloat = compareToThis;
-	}
+	TransitionRule(ComponentPtr componentPtr, ComponentGetterPtr getterFunctionPtr, 
+		Comparer inputOperator, compareType compareToThis) :
+		comparisonOperator(inputOperator), _componentPtr(componentPtr), _getterPtr(getterFunctionPtr),
+		_compareToThis(compareToThis)
+	{}
 	/*
-	Constructor for a rule that compares ints.
-	Component (Actor::*component) is a pointer to the component from which the member function getterToCompare() will be called.
-	int (Component::*getterToCompare)() is a pointer to the getter function that returns the value to be compared.
+	Constructor for a rule that compares with EQUALS only. Use this constructor for bool values.
+	ComponentPtr is a pointer to the component from which the member function getterToCompare() will be called.
+	ComponentGetterPtr is a pointer to the getter function that returns the value to be compared.
 	TransitionRule::Comparer is an enum that denotes the comparison type.
-	int compareToThis is the int value that the comparison must satisfy.
+	compareType compareToThis is the value that the comparison must satisfy.
+	===
 	@example:
-	TransitionRule(&Actor::HealthComponent, &HealthComponent::getHealth(), LESS_THAN_EQUALS, 20) creates a transition rule
-	where the actor's health must be less than or equal to 20 in order to satisfy the rule.
+	===
+	TransitionRule<MotionComponent, bool>(&Actor::MotionComponent, &MotionComponent::isOnGround(), false) 
+	creates a transition rule where the actor must be off the ground in order to satisfy the rule.
+
+	---NOTE---
+	The types being compared must have the comparison operator == defined for them, otherwise
+	TransitionRule::isSatisfied() will produce undefined behaviour.
 	*/
-	TransitionRule(Component (Actor::*component), int (Component::*getterToCompare)(), 
-		Comparer inputOperator, int compareToThis) :
-		comparisonOperator(inputOperator), comparisonType(INTEGER)
-	{
-		_component = component;
-		_intFunctionToCompare = getterToCompare;
-		_compareToThisInt = compareToThis;
-	}
-	/*
-	Constructor for a rule that compares bools.
-	Component (Actor::*component) is a pointer to the component from which the member function getterToCompare() will be called.
-	bool (Component::*getterToCompare)() is a pointer to the getter function that returns the value to be compared.
-	bool compareToThis is the bool value that the comparison must satisfy.
-	@example:
-	TransitionRule(&Actor::MotionComponent, &MotionComponent::getIsOnGround(), false) creates a transition rule
-	where the actor must be off the ground in order to satisfy the rule.
-	*/
-	TransitionRule(Component (Actor::*component), bool (Component::*getterToCompare)(), 
-		bool compareToThis) :
-		comparisonType(BOOLEAN)
-	{
-		_component = component;
-		_boolFunctionToCompare = getterToCompare;
-		_compareToThisBool = compareToThis;
-	}
+	TransitionRule(ComponentPtr componentPtr, ComponentGetterPtr getterFunctionPtr, compareType compareToThis) :
+		comparisonOperator(EQUALS), _componentPtr(componentPtr), 
+		_getterPtr(getterFunctionPtr), _compareToThis(compareToThis)
+	{}
 
 	/*
 	Returns whether the transition rule has been satisfied or not for the specified actor.
 	*/
-	bool isSatisfied(Actor& actor)
+	virtual bool isSatisfied(Actor& actor)
 	{
-		//VERY UGLY - probably redo this whole system?
-		switch (comparisonType)
-		{
-		case BOOLEAN:
-		{
-			//dereferences the actor's component, then calls _boolFunctionToCompare() on the dereferenced component
-			bool valToCompare = (
-				actor.*(_component).*(_boolFunctionToCompare)
-				)();
+		compareType valueToCompare = ((actor.*_componentPtr).*_getterPtr)(); 
+		//call the getter function in the actor instance to get the value to compare
 
-			return _compareToThisBool && valToCompare;
-			break;
-		}
-		case INTEGER:
-		{
-			//dereferences the actor's component, then calls _intFunctionToCompare() on the dereferenced component
-			int valToCompare = (
-				actor.*(_component).*(_intFunctionToCompare)
-				)();
-			switch (comparisonOperator)
-			{
-				
-			case EQUALS:
-			{
-				return _compareToThisInt == valToCompare;
-				break;
-			}
-			case NOT_EQUALS:
-			{
-				return _compareToThisInt != valToCompare;
-				break;
-			}
-			case GREATER_THAN:
-			{
-				return _compareToThisInt > valToCompare;
-				break;
-			}
-			case LESS_THAN:
-			{
-				return _compareToThisInt < valToCompare;
-				break;
-			}
-			case GREATER_THAN_EQUALS:
-			{
-				return _compareToThisInt >= valToCompare;
-				break;
-			}
-			case LESS_THAN_EQUALS:
-			{
-				return _compareToThisInt <= valToCompare;
-				break;
-			}
-			default:
-			{
-				//throw an error!
-				return false;
-				break;
-			}
-			}
-		}
-		case FLOAT:
-		{
-			//dereferences the actor component, then calls floatFunctionToCompare() on the dereferenced component
-			float valToCompare = (
-				actor.*(_component).*(_floatFunctionToCompare)
-				)();
-			switch (comparisonOperator)
-			{
-			case EQUALS:
-			{
-				return _compareToThisFloat == valToCompare;
-				break;
-			}
-			case NOT_EQUALS:
-			{
-				return _compareToThisFloat != valToCompare;
-				break;
-			}
-			case GREATER_THAN:
-			{
-				return _compareToThisFloat > valToCompare;
-				break;
-			}
-			case LESS_THAN:
-			{
-				return _compareToThisFloat < valToCompare;
-				break;
-			}
-			case GREATER_THAN_EQUALS:
-			{
-				return _compareToThisFloat >= valToCompare;
-				break;
-			}
-			case LESS_THAN_EQUALS:
-			{
-				return _compareToThisFloat <= valToCompare;
-				break;
-			}
-			default:
-			{
-				//throw an error!
-				return false;
-				break;
-			}
-			}
-		} //end of case:FLOAT
 
-		}//end of overall switch
-		return false;
+		switch (comparisonOperator)
+		{
+		case EQUALS:
+		{
+			return valueToCompare == _compareToThis;
+		}
+		case NOT_EQUALS:
+		{
+			return valueToCompare != _compareToThis;
+		}
+		case GREATER_THAN:
+		{
+			return valueToCompare > _compareToThis;
+		}
+		case LESS_THAN:
+		{
+			return valueToCompare < _compareToThis;
+		}
+		case GREATER_THAN_EQUALS:
+		{
+			return valueToCompare >= _compareToThis;
+		}
+		case LESS_THAN_EQUALS:
+		{
+			return valueToCompare <= _compareToThis;
+		}
+		}
+
+		//if something above goes wrong, eh just let the actor transition
+		return true;
 	}
 };
 

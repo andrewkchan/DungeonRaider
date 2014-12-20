@@ -1,10 +1,14 @@
 #ifndef STATECONTROLLER_H
 #define STATECONTROLLER_H
 
+//fwd declarations
+class Actor;
+class State;
 
 #include "AnimState.h"
 #include <vector>
-#include "PhysicalState.h"
+
+
 
 
 class StateController

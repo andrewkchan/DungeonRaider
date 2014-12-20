@@ -1,8 +1,11 @@
 #ifndef STATECOMPONENT_H
 #define STATECOMPONENT_H
 
-#include "StateController.h"
+//fwd declarations
+class Actor;
+class StateController;
 
+#include "StateController.h"
 
 class StateComponent
 {
@@ -18,24 +21,12 @@ protected:
 private:
 	StateController* _stateController; //the class containing all possible states for this actor
 public:
-	StateComponent(StateController* controller = 0) : _stateController(controller)
-	{
-		_indexOfCurrentState = _stateController->getIndexOfDefaultState();
-	}
-	StateComponent(const StateComponent& stateComponent)
-	{
-		_indexOfCurrentState = stateComponent._indexOfCurrentState;
-		_stateController = stateComponent._stateController;
-	}
+	StateComponent(StateController* controller = 0);
+	StateComponent(const StateComponent& stateComponent);
 
 	
-	void setStateController(StateController* controller)
-	{
-		_stateController = controller;
-		_indexOfCurrentState = _stateController->getIndexOfDefaultState();
-		//leave the game to deal with the old state controller
-	}
-	void update(double frameTime, Actor* actor) { _stateController->updateState(frameTime, *actor, _indexOfCurrentState); }
+	void setStateController(StateController* controller);
+	void update(double frameTime, Actor* actor);
 };
 
 

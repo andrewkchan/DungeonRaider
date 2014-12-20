@@ -76,6 +76,7 @@
     <ClCompile Include="..\..\Vector2\Vector2\EVector2.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="AnimState.cpp" />
+    <ClCompile Include="AnimStateComponent.cpp" />
     <ClCompile Include="AnimStateController.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CharacterManager.cpp" />
@@ -92,6 +93,7 @@
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="EVector3.cpp" />
     <ClCompile Include="State.cpp" />
+    <ClCompile Include="StateComponent.cpp" />
     <ClCompile Include="StateController.cpp" />
     <ClCompile Include="Transition.cpp" />
   </ItemGroup>
@@ -111,9 +113,9 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="CharacterManager.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="JumpCommand.h" />
     <ClInclude Include="Material.h" />
-    <ClInclude Include="MotionComponent.h" />
     <ClInclude Include="MoveBackwardCommand.h" />
     <ClInclude Include="MoveForwardCommand.h" />
     <ClInclude Include="MoveLeftCommand.h" />
@@ -126,8 +128,10 @@
     <ClInclude Include="StateController.h" />
     <ClInclude Include="TexturePtr.h" />
     <ClInclude Include="EVector3.h" />
+    <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="Transition.h" />
     <ClInclude Include="TransitionRule.h" />
+    <ClInclude Include="TransitionRuleBase.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

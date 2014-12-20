@@ -16,9 +16,7 @@ class CharacterManager
 	Only 1 instance of this class should exist at a time.
 	*/
 private:
-	Character* CharacterArray; //an array of the Characters managed by this class
-	int numCharacters; //the number of Characters managed by this class
-	int CharacterArrayLength; //length of CharacterArray (NOTE: should be greater than numCharacters, so empty elements in the array)
+	std::vector<Character> characters;
 
 	Attributes skeletonAttributes;
 	Character* skeletonPrototype;
@@ -27,10 +25,6 @@ public:
 	CharacterManager()
 	{
 		//default constructor
-		CharacterArray = new Character[4]; //by default, get enough size for 4 Characters in the array
-		CharacterArrayLength = 4; 
-		numCharacters = 0;
-
 
 		//initialize/define prototypes
 		
@@ -45,8 +39,7 @@ public:
 	~CharacterManager()
 	{
 		//destructor
-		delete[] CharacterArray;
-		CharacterArray = 0;
+		characters.clear();
 		delete skeletonPrototype;
 		skeletonPrototype = 0;
 	}
@@ -54,8 +47,8 @@ public:
 	void instantiateSkeleton();
 	void pushCharacter(Character newCharacter);
 	void update(double frameTime); //update all Characters in the current frame
-	void draw(); //draw all Characters in the current frame
-	int getNumCharacters() { return numCharacters; }
+	void draw(sf::RenderWindow& window); //draw all Characters in the current frame
+	int getNumCharacters() { return characters.size(); }
 };
 
 

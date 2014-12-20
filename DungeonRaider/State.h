@@ -1,12 +1,12 @@
 #ifndef STATE_H
 #define STATE_H
 
-#include "Actor.h"
+
 #include "Transition.h"
 #include <map>
 
 //fwd declarations
-class Actor;
+class Transition;
 
 class State
 {

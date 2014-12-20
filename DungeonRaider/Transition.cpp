@@ -1,10 +1,18 @@
 #include "Transition.h"
 
+template<class ComponentType, typename compareType>
+void Transition::addTransitionRule(TransitionRule<ComponentType, compareType> rule)
+{
+	//create a pointer to a copy of the input rule
+	//push that pointer onto the vector of TransitionRule pointers
+	transitionRules.push_back(new TransitionRule(rule));
+}
+
 bool Transition::canTransition(Actor& actor)
 {
 	for (std::size_t i = 0; i < transitionRules.size(); i++)
 	{
-		if (!transitionRules[i].isSatisfied(actor))
+		if (!transitionRules[i]->isSatisfied(actor))
 		{
 			//if any of the transition rules are not satisfied, return false
 			return false;

@@ -39,8 +39,21 @@ public:
 		}
 		else
 		{
-			_sprites = 0;
+			//_sprites = 0; //unsafe!
+			//let's make an empty sprite object instead, so at least we have something to return with getCurrentFrame()
+			_numSprites = 1;
+			_sprites = new sf::Sprite[_numSprites];
+			_sprites[0] = sf::Sprite();
 		}
+	}
+
+	//constructor to create single-frame animation from single sprite
+	Animation(sf::Sprite inputSprite) 
+	{
+		_numSprites = 1;
+		_sprites = new sf::Sprite[_numSprites];
+		_sprites[0] = inputSprite;
+		_animTime = 0.0;
 	}
 	Animation(const Animation& srcAnimation) //copy constructor
 	{

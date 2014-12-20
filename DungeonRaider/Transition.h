@@ -1,6 +1,7 @@
 #ifndef TRANSITION_H
 #define TRANSITION_H
 
+
 #include <vector>
 #include "TransitionRule.h"
 
@@ -21,14 +22,23 @@ class Transition
 private:
 	//the rules that must be satisfied in order for the transition to occur
 	//stores actual TransitionRule objects
-	std::vector<TransitionRule> transitionRules; 
+	std::vector<TransitionRuleBase*> transitionRules; 
 public:
 	Transition() {} //default constructor
 	Transition(const Transition& srcTransition) //copy constructor
 	{
 		transitionRules = srcTransition.transitionRules; //copies vector data, should be safe
 	}
-	~Transition() { transitionRules.clear(); } //destructor
+	~Transition()
+	{
+		while (!transitionRules.empty())
+		{
+			delete transitionRules.back();
+			transitionRules.pop_back();
+		}
+	}
+	
+	
 	/*
 	Adds a rule for this transition to happen.
 	@example:
@@ -39,7 +49,8 @@ public:
 	Creates a transition walkToJump with the rule that the actor must be off the ground
 	in order for the transition to occur.
 	*/
-	void addTransitionRule(TransitionRule rule) { transitionRules.push_back(rule); }
+	template<class ComponentType, typename compareType>
+	void addTransitionRule(TransitionRule<ComponentType, compareType> rule);
 
 
 	//returns whether the actor can transition or not according to the transition rules.
