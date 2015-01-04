@@ -11,9 +11,10 @@ Dungeon Raider, an isometric 2D procedurally generated action-RPG.
 
 */
 
-
+/*
 int main(int argc, char* args[])
 {
+	
 	bool bRunGame = true;
 	sf::Clock clock;
 	sf::Time deltaTime = clock.getElapsedTime(); //the total amount of time elapsed since last clock measurement
@@ -32,11 +33,15 @@ int main(int argc, char* args[])
 	}
 	game.close();
 
+	std::cin.clear();
+	std::cin.ignore(1000, '\n');
+	std::cin.get();
+	
 	return 0;
-}
+}*/
 
 
-/*
+
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
@@ -59,4 +64,3 @@ int main()
 
 	return 0;
 }
-*/

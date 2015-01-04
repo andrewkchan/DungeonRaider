@@ -40,7 +40,7 @@ public:
 	virtual int updateState(double frameTime, Actor& actor, int indexOfCurrentState); 
 
 	virtual void addPossibleState(const State& srcState);
-
+	virtual void setDefaultState(std::string defaultState);
 };
 
 

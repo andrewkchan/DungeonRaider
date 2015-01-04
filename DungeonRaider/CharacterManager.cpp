@@ -6,13 +6,13 @@ void CharacterManager::pushCharacter(Character newCharacter)
 }
 void CharacterManager::instantiateSkeleton()
 {
-	pushCharacter(*skeletonPrototype);
+	pushCharacter(*skeletonPrototype); //push a copy of the prototype onto the vector
 }
 void CharacterManager::draw(sf::RenderWindow& window)
 {
 	for (size_t i = 0; i < characters.size(); i++)
 	{
-		characters[i].animStateComponent.onDraw();
+		window.draw(characters[i].animStateComponent_.onDraw());
 	}
 }
 void CharacterManager::update(double frameTime)

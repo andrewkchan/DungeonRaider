@@ -37,7 +37,7 @@ public:
 		SCREEN_WIDTH(640), SCREEN_HEIGHT(480), verticalSyncEnabled(false)
 	{
 		//default constructor
-
+		//_characterManager = new CharacterManager();
 	}
 	~GameState()
 	{

@@ -19,15 +19,17 @@ protected:
 	Animation anim; //the animation that should be played while in this state, allocated on stack so don't worry about deletion
 
 public:
-	AnimState() 
-	{
-		anim = Animation(sf::Sprite()); //make a single-frame animation using an empty sprite
-	} //default constructor with placeholder animation
+	//default constructor with placeholder (empty) animation
+	AnimState() : State(), 
+		anim(sf::Sprite()) //make a single-frame animation using an empty sprite
+	{} 
 	AnimState(const AnimState& animState)
 	{
 		anim = animState.anim;
 	}
-	AnimState(const Animation& srcAnim) //sets the animation to srcAnim
+	AnimState(std::string name, Animation& srcAnim) :
+		State(name)
+		//sets the animation to srcAnim
 	{
 		anim = srcAnim;
 	}

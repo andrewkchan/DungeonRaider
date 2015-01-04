@@ -28,7 +28,7 @@ protected:
 	std::map<std::string, Transition> possibleTransitions; //a map of transitions (Transition) to possible states (std::string)
 	std::map<std::string, Transition>::iterator currTransition; //an iterator for the above map
 public:
-	State() : stateTime(0) {} //default constructor (for making arrays)
+	State() : stateTime(0), stateName("") {} //default constructor (for making arrays)
 	State(std::string name) : stateTime(0), stateName(name) {} //constructor with name param
 	virtual ~State() {}
 

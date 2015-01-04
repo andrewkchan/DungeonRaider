@@ -27,6 +27,8 @@ public:
 	
 	void setStateController(StateController* controller);
 	void update(double frameTime, Actor* actor);
+
+	StateComponent& operator=(const StateComponent& stateComponent);
 };
 
 

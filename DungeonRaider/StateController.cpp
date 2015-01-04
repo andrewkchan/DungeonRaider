@@ -35,3 +35,14 @@ void StateController::addPossibleState(const State& srcState)
 	}
 	possibleStates.push_back(srcState);
 }
+void StateController::setDefaultState(std::string defaultState)
+{
+	for (size_t i = 0; i < possibleStates.size(); i++)
+	{
+		if (possibleStates[i].getName() == defaultState)
+		{
+			indexOfDefaultState = static_cast<int>(i);
+			return;
+		}
+	}
+}

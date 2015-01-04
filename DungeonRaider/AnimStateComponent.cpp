@@ -37,5 +37,23 @@ sf::Sprite& AnimStateComponent::onDraw()
 	
 }
 
+AnimStateComponent& AnimStateComponent::operator=(const AnimStateComponent& animStateComponent)
+{
+	//check for self-assignment
+	if (&animStateComponent == this)
+	{
+		return *this;
+	}
+
+	isVisible = animStateComponent.isVisible;
+	_stateController = animStateComponent._stateController;
+	_indexOfCurrentState = animStateComponent._indexOfCurrentState;
+
+	return *this;
+}
+
+
+//the controller to use when no controller is provided. contains an animation with an empty sprite.
+//WARNING: This static object initializes before main() executes
 AnimStateController AnimStateComponent::s_defaultController;
 //initialize the default (empty) animation controller to an empty controller

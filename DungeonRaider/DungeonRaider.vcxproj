@@ -84,6 +84,7 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveBackwardCommand.cpp" />
@@ -95,6 +96,7 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateComponent.cpp" />
     <ClCompile Include="StateController.cpp" />
+    <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="Transition.cpp" />
   </ItemGroup>
   <ItemGroup>

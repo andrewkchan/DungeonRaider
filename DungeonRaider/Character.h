@@ -36,7 +36,7 @@ public:
 		attributes(inputAttributes), controller(0), Actor(inputPos)
 	{
 		//constructor with attributes param
-		physicalState.health = attributes->maxHealth;
+		
 	}
 	/*
 	Copy-constructor
@@ -45,12 +45,19 @@ public:
 	Character(const Character& Character)
 	{
 		attributes = Character.attributes;
-		physicalState = Character.physicalState;
 		controller = Character.controller;
 		
 		//repoint the controller at this character, since most likely the old character will be destroyed
 		controller->linkCharacter(this); 
 	}
+	/*
+	Character constructor with params to set the components by value.
+	*/
+	Character(const Attributes* inputAttributes, AnimStateComponent animStateComponent, HealthComponent healthComponent = HealthComponent(),
+		StateComponent stateComponent = StateComponent(), TransformComponent transformComponent = TransformComponent())
+		:
+		Actor(animStateComponent, healthComponent, stateComponent, transformComponent), attributes(inputAttributes)
+	{}
 	virtual ~Character()
 	{
 		//destructor
@@ -67,14 +74,9 @@ public:
 		}
 
 		attributes = Character.attributes;
-		physicalState = Character.physicalState; //uses implicit copy-constructor
 		controller = Character.controller;
 	}
-	const PhysicalState& getPhysicalState() { return physicalState; }
 	const Attributes& getAttributes() { return *(attributes); }
-
-	//functions to change protected stuff
-	void addHealth(int inputHealth);
 
 	//tick function
 	virtual void update(double frameTime); //todo: make this

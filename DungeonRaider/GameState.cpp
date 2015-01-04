@@ -78,7 +78,7 @@ void GameState::getInput(double frameTime)
 
 void GameState::update(double frameTime)
 {
-
+	_characterManager->update(frameTime);
 }
 
 void GameState::draw()
@@ -89,6 +89,8 @@ void GameState::draw()
 	//
 	//draw current frame
 	//
+
+	//_characterManager->draw(window);
 
 
 	//bring image from back to front buffer
