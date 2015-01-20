@@ -107,7 +107,11 @@ public:
 			_sprites = new sf::Sprite[_numSprites];
 			for (int i = 0; i < _numSprites; i++)
 			{
-				_sprites[i].setTexture(*(srcAnimation._sprites[i].getTexture()));
+				if (srcAnimation._sprites[i].getTexture()) //if the source sprite has a non-null texture
+					//sf::Sprite::setTexture requires a reference, so we can't pass in null
+				{
+					_sprites[i].setTexture(*(srcAnimation._sprites[i].getTexture()));
+				}
 			}
 		}
 		else

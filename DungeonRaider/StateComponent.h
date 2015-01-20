@@ -17,7 +17,7 @@ class StateComponent
 	
 	*/
 protected:
-	int _indexOfCurrentState; //the index in StateController's vector of states that the actor is currently in
+	int _indexOfCurrentState; //the index in StateController's vector of states that the actor is currently in, -1 if no state
 private:
 	StateController* _stateController; //the class containing all possible states for this actor
 public:

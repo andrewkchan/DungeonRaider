@@ -1,31 +1,6 @@
 #include "GameState.h"
 
-void GameState::loadMedia()
-{
-	_characterManager = new CharacterManager();
-
-}
-
-void GameState::init()
-{
-	window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Dungeon Raider");
-	if (verticalSyncEnabled)
-	{
-		window.setVerticalSyncEnabled(true);
-	}
-	//done loading fundamental rendering stuff, now load gameplay logic and media
-	loadMedia();
-}
-
-void GameState::close()
-{
-	window.close();
-	std::cout << "Closing game" << std::endl;
-	exit(0); //exit game!
-
-	
-}
-
+/*
 void GameState::getInput(double frameTime)
 {
 	//GameState::getInput
@@ -75,24 +50,4 @@ void GameState::getInput(double frameTime)
 	//
 	//
 }
-
-void GameState::update(double frameTime)
-{
-	_characterManager->update(frameTime);
-}
-
-void GameState::draw()
-{
-	//clears buffer of previous frame
-	window.clear(sf::Color::Black);
-
-	//
-	//draw current frame
-	//
-
-	//_characterManager->draw(window);
-
-
-	//bring image from back to front buffer
-	window.display();
-}
+*/

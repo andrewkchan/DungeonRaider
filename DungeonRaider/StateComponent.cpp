@@ -1,8 +1,16 @@
 #include "StateComponent.h"
 
 StateComponent::StateComponent(StateController* controller) : _stateController(controller)
+//note: has default arg of null
 {
-	_indexOfCurrentState = _stateController->getIndexOfDefaultState();
+	if (_stateController)
+	{
+		_indexOfCurrentState = _stateController->getIndexOfDefaultState();
+	}
+	else
+	{
+		_indexOfCurrentState = -1;
+	}
 }
 StateComponent::StateComponent(const StateComponent& stateComponent)
 {
@@ -13,12 +21,17 @@ StateComponent::StateComponent(const StateComponent& stateComponent)
 void StateComponent::setStateController(StateController* controller)
 {
 	_stateController = controller;
-	_indexOfCurrentState = _stateController->getIndexOfDefaultState();
+	if (_stateController)
+		_indexOfCurrentState = _stateController->getIndexOfDefaultState();
+	else
+		_indexOfCurrentState = -1;
 	//leave the game to deal with the old state controller
 }
 void StateComponent::update(double frameTime, Actor* actor) 
 { 
-	_stateController->updateState(frameTime, *actor, _indexOfCurrentState); 
+	if (_stateController)
+		_stateController->updateState(frameTime, *actor, _indexOfCurrentState); 
+	//else do nothing
 }
 
 StateComponent& StateComponent::operator=(const StateComponent& stateComponent)

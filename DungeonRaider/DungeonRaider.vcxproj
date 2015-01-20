@@ -83,7 +83,11 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="GameStateEditor.cpp" />
+    <ClCompile Include="GameStateMainMenu.cpp" />
+    <ClCompile Include="GameStatePlay.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
     <ClCompile Include="main.cpp" />
@@ -96,6 +100,7 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateComponent.cpp" />
     <ClCompile Include="StateController.cpp" />
+    <ClCompile Include="TextureLibrary.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="Transition.cpp" />
   </ItemGroup>
@@ -114,7 +119,11 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="CharacterManager.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="GameStateEditor.h" />
+    <ClInclude Include="GameStateMainMenu.h" />
+    <ClInclude Include="GameStatePlay.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="JumpCommand.h" />
     <ClInclude Include="Material.h" />
@@ -128,6 +137,7 @@
     <ClInclude Include="State.h" />
     <ClInclude Include="StateComponent.h" />
     <ClInclude Include="StateController.h" />
+    <ClInclude Include="TextureLibrary.h" />
     <ClInclude Include="TexturePtr.h" />
     <ClInclude Include="EVector3.h" />
     <ClInclude Include="TransformComponent.h" />

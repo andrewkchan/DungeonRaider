@@ -1,64 +1,42 @@
 #ifndef GAMESTATE_H
 #define GAMESTATE_H
 
-#include <SFML/Window.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Config.hpp>
-#include <SFML/Graphics.hpp>
 #include <iostream>
-#include "CharacterManager.h"
+#include "Game.h"
 
-class CharacterManager; //forward declaration of dependencies
-
+//Base class for the discrete states of the game.
 class GameState
 {
 	/*
 	Class GameState
 
-	This class describes the whole game for each iteration of the game loop.
+	This class describes a discrete state of the game, such as a pause state, play state, menu state, etc.
 
 	It contains methods for initializing the game and loading all media/renderers/etc,
 	handling user input for the game, updating the game, drawing the game, and closing the game.
 	
 	
 	*/
-private:
-
-	sf::RenderWindow window;
-	const int SCREEN_HEIGHT;
-	const int SCREEN_WIDTH;
-	bool verticalSyncEnabled;
-
-	CharacterManager* _characterManager; //don't know CharacterManager's size b/c it's dynamic, so must be on heap
-	
-	void loadMedia(); //load all entities n' such
+protected:
+	Game* game_;
+	sf::Sprite background_;
 public:
-	GameState() :
-		SCREEN_WIDTH(640), SCREEN_HEIGHT(480), verticalSyncEnabled(false)
+	GameState(Game* game = 0) : game_(game)
 	{
-		//default constructor
-		//_characterManager = new CharacterManager();
+		background_.setTexture(game_->sharedTextures_.getTexture("background"));
 	}
-	~GameState()
-	{
-		//destructor
-	}
-
-
-	void init();
-	void close();
-
-	//todo: pause and resume functions
+	virtual ~GameState() {} //obviously we don't want to delete the game
 
 	// *brief: get user input and handle it
 	// *note: param frameTime is the timestep between frames
 	// *note: the time param allows handling of double-clicks n' such
-	void getInput(double frameTime); 
+	virtual void getInput(double frameTime) = 0; 
 
 	// *brief: updates the game using the timestep between frames, frameTime
-	void update(double frameTime); 
+	virtual void update(double frameTime) = 0; 
 
-	void draw(); //draw the current frame
+	// *brief: draw the current frame
+	virtual void draw() = 0; 
 };
 
 
