@@ -1,7 +1,7 @@
 #include "AnimState.h"
 
 
-sf::Sprite& AnimState::OnDraw()
+sf::IntRect AnimState::OnDraw(float timeInState)
 {
 	return anim.getCurrentFrame(timeInState);
 }

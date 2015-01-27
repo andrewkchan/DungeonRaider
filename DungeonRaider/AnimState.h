@@ -20,13 +20,10 @@ protected:
 
 public:
 	//default constructor with placeholder (empty) animation
-	AnimState() : State(), 
-		anim(sf::Sprite()) //make a single-frame animation using an empty sprite
+	AnimState() : State(), anim() //single-frame animation
 	{} 
-	AnimState(const AnimState& animState)
-	{
-		anim = animState.anim;
-	}
+	//implicit copy-constructor!
+
 	AnimState(std::string name, Animation& srcAnim) :
 		State(name)
 		//sets the animation to srcAnim
@@ -35,7 +32,8 @@ public:
 	}
 	virtual ~AnimState() {}
 
-	virtual sf::Sprite& OnDraw();
+	//draw the animation's current frame according to total continuous time spent in the state so far
+	sf::IntRect OnDraw(float timeInState);
 
 };
 

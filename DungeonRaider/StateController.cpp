@@ -9,14 +9,16 @@ int StateController::updateState(double frameTime, Actor& actor, int indexOfCurr
 	{
 		//if the current state reports that the state we should change to is not the current state's name,
 		//then change to the new state
-		for (size_t i = 0; i < possibleStates.size(); i++)
+		for (unsigned int i = 0; i < possibleStates.size(); ++i) //use indices, not iterators, 'cause we know we're using a vector
 		{
 			if (possibleStates[i].getName() == nextStateName)
 			{
 				//change to the next state
-				int nextState = i;
-				possibleStates[nextState].OnEntry();
-				return nextState; //then exit the loop
+
+				//int nextState = i;
+				//possibleStates[nextState].OnEntry();
+				//return nextState; //then exit the loop
+				return i;
 			}
 		}
 	}

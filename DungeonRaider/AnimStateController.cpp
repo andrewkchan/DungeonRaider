@@ -1,8 +1,10 @@
 #include "AnimStateController.h"
 
-sf::Sprite& AnimStateController::getStateSprite(int indexOfCurrentState)
+sf::IntRect AnimStateController::OnDraw(int indexOfCurrentState, float timeInCurrentState)
 {
-	return possibleStates[indexOfCurrentState].OnDraw();
+	if (possibleStates.size() > 0)
+		return possibleStates[indexOfCurrentState].OnDraw(timeInCurrentState);
+	return sf::IntRect();
 }
 void AnimStateController::addPossibleState(const AnimState& srcState)
 {
@@ -16,4 +18,9 @@ void AnimStateController::addPossibleState(const AnimState& srcState)
 		}
 	}
 	possibleStates.push_back(srcState);
+}
+
+float AnimStateController::getMaxTimeOfState(int indexOfState)
+{
+	return possibleStates[indexOfState].getMaxTime();
 }

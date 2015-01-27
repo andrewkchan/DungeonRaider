@@ -97,6 +97,7 @@
     <ClCompile Include="MoveRightCommand.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="EVector3.cpp" />
+    <ClCompile Include="Sequence.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateComponent.cpp" />
     <ClCompile Include="StateController.cpp" />
@@ -107,6 +108,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Vector2\Vector2\EVector2.h" />
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="Sequence.h" />
     <ClInclude Include="AnimState.h" />
     <ClInclude Include="AnimStateComponent.h" />
     <ClInclude Include="AnimStateController.h" />

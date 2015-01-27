@@ -49,6 +49,9 @@
     <Filter Include="Source Files\GameStates">
       <UniqueIdentifier>{455f77da-2d91-4df2-94e5-d063fc5635c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components\DrawableComponents">
+      <UniqueIdentifier>{efb708f8-90ab-43e3-98ba-363d314bc67e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -114,9 +117,6 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Source Files\Components\GraphicsDependencies</Filter>
     </ClCompile>
-    <ClCompile Include="AnimStateComponent.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="StateComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
@@ -140,6 +140,12 @@
     </ClCompile>
     <ClCompile Include="TextureLibrary.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence.cpp">
+      <Filter>Source Files\Components\GraphicsDependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimStateComponent.cpp">
+      <Filter>Source Files\Components\DrawableComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -236,9 +242,6 @@
     <ClInclude Include="Component.h">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="AnimStateComponent.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="TransitionRuleBase.h">
       <Filter>Source Files\Components\States</Filter>
     </ClInclude>
@@ -262,6 +265,12 @@
     </ClInclude>
     <ClInclude Include="TextureLibrary.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence.h">
+      <Filter>Source Files\Components\GraphicsDependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimStateComponent.h">
+      <Filter>Source Files\Components\DrawableComponents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

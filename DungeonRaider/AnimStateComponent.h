@@ -18,13 +18,16 @@ class AnimStateComponent
 	This class encapsulates actor interaction with its current drawable state.
 	*/
 private:
-	static AnimStateController s_defaultController; //the controller to use when no controller is provided. contains an animation with an empty sprite.
+	bool isVisible_;
+	int indexOfCurrentState_;
+	float timeInCurrentState_;
+	AnimStateController* stateController_;
 
-	bool isVisible;
-	int _indexOfCurrentState;
-	AnimStateController* _stateController;
+	//the thing we want to draw!
+	sf::Sprite currentFrame_; 
 public:
-	AnimStateComponent(AnimStateController* stateController = 0);
+	AnimStateComponent();
+	AnimStateComponent(sf::Texture& spriteSheet, AnimStateController* stateController = 0);
 	AnimStateComponent(const AnimStateComponent& animStateComponent);
 
 	void setStateController(AnimStateController* controller);

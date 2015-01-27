@@ -9,8 +9,6 @@ class State;
 #include <vector>
 
 
-
-
 class StateController
 {
 	/*
@@ -20,7 +18,8 @@ class StateController
 	The entity should pass in a struct representing its physical state or a trigger representing an external event,
 	which the StateController should handle and thus determine the new state that the entity is in.
 	
-	Each actor contains a pointer to a StateComponent, which interfaces with its type of StateController.
+	Each actor's StateComponent contains a pointer to a StateController, which will be shared among actors of
+	the same type of ingame object.
 	*/
 
 

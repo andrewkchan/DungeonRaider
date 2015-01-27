@@ -22,6 +22,7 @@ private:
 	Character* skeletonPrototype;
 	AnimStateController skeletonAnimController;
 
+	TextureLibrary skeletonTextures;
 public:
 	CharacterManager()
 	{
@@ -36,16 +37,14 @@ public:
 		skeletonAttributes.maxMoveSpeed = 2.0;
 		skeletonAttributes.maxQuickMoveSpeed = 3.0;
 
-		sf::Texture skeletonIdleTex;
-		skeletonIdleTex.loadFromFile("Textures/skeleton_idle.png");
-		sf::Sprite skeletonIdleSprite(skeletonIdleTex);
-		Animation skeletonIdle(skeletonIdleSprite);
+		skeletonTextures.loadTexture("skeleton_idle", "Textures/skeleton_idle.png");
+		Animation skeletonIdle(sf::IntRect(0, 0, 320, 320));
 		AnimState skeletonIdleState("idle", skeletonIdle);
 
 		skeletonAnimController.addPossibleState(skeletonIdleState);
 		skeletonAnimController.setDefaultState("idle");
 
-		AnimStateComponent skeletonAnimator(&skeletonAnimController); //copied by value into prototype, so no need for heap allocation
+		AnimStateComponent skeletonAnimator(skeletonTextures.getTexture("skeleton_idle"), &skeletonAnimController); //copied by value into prototype, so no need for heap allocation
 
 		skeletonPrototype = new Character(&skeletonAttributes, skeletonAnimator);
 	}

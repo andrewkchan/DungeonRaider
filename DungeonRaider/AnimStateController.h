@@ -23,13 +23,14 @@ private:
 	std::vector<AnimState> possibleStates; //a dynamic array of all possible states
 public:
 	AnimStateController() 
-	{
-		possibleStates.push_back(AnimState());
-	} //default constructor
+	{}
 	virtual ~AnimStateController() { possibleStates.clear(); }
 
-	virtual sf::Sprite& getStateSprite(int indexOfCurrentState);
+	//return the portion of the texture that should be currently drawn
+	//the entity calling this supplies its current state
+	sf::IntRect OnDraw(int indexOfCurrentState, float timeInCurrentState);
 	virtual void addPossibleState(const AnimState& srcState);
+	float getMaxTimeOfState(int indexOfState);
 };
 
 

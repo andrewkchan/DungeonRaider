@@ -22,14 +22,15 @@ private:
 	//nothing... for now
 protected:
 	std::string stateName; //the name of the state
-	const double stateTime; //the maximum amount of time possible in this state, <0 if infinite
-	double timeInState; //the total time spent in the state so far
+	float stateTime; //the maximum amount of time possible in this state (seconds), <=0 if infinite
 
 	std::map<std::string, Transition> possibleTransitions; //a map of transitions (Transition) to possible states (std::string)
 	std::map<std::string, Transition>::iterator currTransition; //an iterator for the above map
 public:
-	State() : stateTime(0), stateName("") {} //default constructor (for making arrays)
-	State(std::string name) : stateTime(0), stateName(name) {} //constructor with name param
+	//default constructor (for initializing arrays)
+	State() : stateTime(0), stateName("") {} 
+	//constructor with name and max time param
+	State(std::string name, float maxTime = 0.0f) : stateTime(maxTime), stateName(name) {} 
 	virtual ~State() {}
 
 	/*tick function, checks whether actor should transition to another state or not
@@ -49,9 +50,15 @@ public:
 	virtual void setTransitionToState(std::string transitionToThis, Transition newTransition);
 
 	//return the name of the current state
-	virtual std::string getName() const { return stateName; }
-	//to be called when entering the state
-	virtual void OnEntry() { timeInState = 0; }
+	std::string getName() const { return stateName; }
+
+	//change the name of the state (unsafe if already in stateController... could lead to duplicate states)
+	//void setName(std::string newName) { stateName = newName; }
+
+	//change the maximum amount of time possible for an entity to spend in the state
+	void setMaxTime(float newMaxTime) { stateTime = newMaxTime; }
+	//return the maximum amount of time possible for an entity to spend in the state
+	float getMaxTime() { return stateTime; }
 };
 
 

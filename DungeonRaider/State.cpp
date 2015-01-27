@@ -14,7 +14,6 @@ std::string State::OnUpdate(Actor& actor, double frameTime)
 		currTransition++;
 	}
 	//if we can't transition to any other states, simply return the name of our state (this state)
-	timeInState += frameTime;
 	return stateName;
 }
 void State::addTransitionToState(std::string transitionToThis)

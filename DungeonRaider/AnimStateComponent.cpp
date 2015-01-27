@@ -1,40 +1,64 @@
 #include "AnimStateComponent.h"
 
-AnimStateComponent::AnimStateComponent(AnimStateController* stateController) :
-_stateController(stateController), isVisible(true)
+AnimStateComponent::AnimStateComponent() :
+stateController_(0),
+isVisible_(true),
+indexOfCurrentState_(0),
+timeInCurrentState_(0.0f),
+currentFrame_(sf::Sprite())
+{}
+
+AnimStateComponent::AnimStateComponent(sf::Texture& spriteSheet, AnimStateController* stateController) :
+stateController_(stateController),
+isVisible_(true),
+indexOfCurrentState_(0),
+timeInCurrentState_(0.0f),
+currentFrame_(sf::Sprite(spriteSheet))
 {
-	if (_stateController)
-		_indexOfCurrentState = _stateController->getIndexOfDefaultState();
+	if (stateController_)
+		indexOfCurrentState_ = stateController_->getIndexOfDefaultState();
 }
 
-AnimStateComponent::AnimStateComponent(const AnimStateComponent& animStateComponent)
+AnimStateComponent::AnimStateComponent(const AnimStateComponent& src) :
+isVisible_(src.isVisible_),
+timeInCurrentState_(0.0f),
+currentFrame_(src.currentFrame_)
 {
-	isVisible = animStateComponent.isVisible;
-	_stateController = animStateComponent._stateController;
-	_indexOfCurrentState = animStateComponent._indexOfCurrentState;
+	setStateController(src.stateController_);
 }
 
 void AnimStateComponent::setStateController(AnimStateController* controller)
 {
-	_stateController = controller;
-	if (_stateController)
-		_indexOfCurrentState = _stateController->getIndexOfDefaultState();
+	stateController_ = controller;
+	if (stateController_)
+		indexOfCurrentState_ = stateController_->getIndexOfDefaultState();
 	//leave the game to deal with the old AnimStateController
 }
 
 void AnimStateComponent::update(double frameTime, Actor* actor)
 {
-	if (_stateController)
-		_stateController->updateState(frameTime, *actor, _indexOfCurrentState);
+	if (stateController_)
+	{
+		int nextState = stateController_->updateState(frameTime, *actor, indexOfCurrentState_);
+		if (nextState != indexOfCurrentState_)
+		{
+			//get the time elapsed since we SHOULD have changed state
+			float timeElapsedSinceStateChange = stateController_->getMaxTimeOfState(indexOfCurrentState_);
+			//then set the time spent in the new state to compensate for this "lag"
+			if (timeElapsedSinceStateChange > 0.0f)
+				timeInCurrentState_ = timeInCurrentState_ - timeElapsedSinceStateChange;
+			else
+				timeInCurrentState_ = 0.0f;
+			indexOfCurrentState_ = nextState;
+		}
+	}
 }
 
 sf::Sprite& AnimStateComponent::onDraw()
 {
-	if (_stateController)
-		return _stateController->getStateSprite(_indexOfCurrentState);
-	else
-		return s_defaultController.getStateSprite(0);
-	
+	if (stateController_)
+		currentFrame_.setTextureRect(stateController_->OnDraw(indexOfCurrentState_, timeInCurrentState_));
+	return currentFrame_;
 }
 
 AnimStateComponent& AnimStateComponent::operator=(const AnimStateComponent& animStateComponent)
@@ -45,15 +69,9 @@ AnimStateComponent& AnimStateComponent::operator=(const AnimStateComponent& anim
 		return *this;
 	}
 
-	isVisible = animStateComponent.isVisible;
-	_stateController = animStateComponent._stateController;
-	_indexOfCurrentState = animStateComponent._indexOfCurrentState;
-
+	isVisible_ = animStateComponent.isVisible_;
+	indexOfCurrentState_ = animStateComponent.indexOfCurrentState_;
+	timeInCurrentState_ = 0.0f;
+	setStateController(animStateComponent.stateController_);
 	return *this;
 }
-
-
-//the controller to use when no controller is provided. contains an animation with an empty sprite.
-//WARNING: This static object initializes before main() executes
-AnimStateController AnimStateComponent::s_defaultController;
-//initialize the default (empty) animation controller to an empty controller
