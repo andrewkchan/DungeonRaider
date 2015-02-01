@@ -27,10 +27,10 @@ void StateComponent::setStateController(StateController* controller)
 		_indexOfCurrentState = -1;
 	//leave the game to deal with the old state controller
 }
-void StateComponent::update(double frameTime, Actor* actor) 
+void StateComponent::update(float frameTime, Actor& actor) 
 { 
 	if (_stateController)
-		_stateController->updateState(frameTime, *actor, _indexOfCurrentState); 
+		_stateController->updateState(frameTime, actor, _indexOfCurrentState); 
 	//else do nothing
 }
 

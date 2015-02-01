@@ -1,5 +1,10 @@
 #include "TransformComponent.h"
 
+void TransformComponent::update(float frameTime, Actor& actor)
+{
+	//TODO: do this!
+}
+
 TransformComponent& TransformComponent::operator=(const TransformComponent& component)
 {
 	//check for self-assignment

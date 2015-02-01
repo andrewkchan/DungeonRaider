@@ -32,12 +32,6 @@ public:
 	
 	Character() : attributes(0), controller(0)
 	{}; //default constructor;
-	Character(const Attributes* inputAttributes, glm::vec4 inputPos = glm::vec4(0.0f,0.0f,0.0f,0.0f)) :
-		attributes(inputAttributes), controller(0), Actor(inputPos)
-	{
-		//constructor with attributes param
-		
-	}
 	/*
 	Copy-constructor
 	Note: This is called often when CharacterManager expands, since it must reallocate Character objects to new memory
@@ -53,10 +47,9 @@ public:
 	/*
 	Character constructor with params to set the components by value.
 	*/
-	Character(const Attributes* inputAttributes, AnimStateComponent animStateComponent, HealthComponent healthComponent = HealthComponent(),
-		StateComponent stateComponent = StateComponent(), TransformComponent transformComponent = TransformComponent())
+	Character(const Attributes* inputAttributes)
 		:
-		Actor(animStateComponent, healthComponent, stateComponent, transformComponent), attributes(inputAttributes)
+		attributes(inputAttributes)
 	{}
 	virtual ~Character()
 	{
@@ -79,7 +72,7 @@ public:
 	const Attributes& getAttributes() { return *(attributes); }
 
 	//tick function
-	virtual void update(double frameTime); //todo: make this
+	virtual void update(float frameTime); //todo: make this
 
 
 

@@ -1,36 +1,34 @@
 #include "Actor.h"
 
 
-void Actor::update(double frameTime)
+void Actor::update(float frameTime)
 {
-	//todo: DO THIS!!!!!
-
-	healthComponent_.update(frameTime); //update health and non-display stuff first
-	//transformComponent_.update(frameTime); //we don't have an update function here yet
-	stateComponent_.update(frameTime, this);
-	animStateComponent_.update(frameTime, this);
+	for (unsigned int i = 0; i < otherComponents.size(); i++)
+	{
+		otherComponents[i]->update(frameTime, *this);
+	}
+	//note: must update ALL other components before drawables, so separate for loops
+	for (unsigned int i = 0; i < drawableComponents.size(); i++)
+	{
+		drawableComponents[i]->update(frameTime, *this);
+	}
 	
-	
 
 }
-void Actor::setAnimStateComponent(const AnimStateComponent& animStateComponent)
+void Actor::addOtherComponent(Component* component)
 {
-	animStateComponent_ = animStateComponent;
+	otherComponents.push_back(component);
 }
-void Actor::setStateComponent(const StateComponent& stateComponent)
+void Actor::addDrawableComponent(DrawableComponent* component)
 {
-	stateComponent_ = stateComponent;
-}
-void Actor::setHealthComponent(const HealthComponent& healthComponent)
-{
-	healthComponent_ = healthComponent;
-}
-void Actor::setTransformComponent(const TransformComponent& transformComponent)
-{
-	transformComponent_ = transformComponent;
+	drawableComponents.push_back(component);
 }
 
-
+Actor::Actor(const Actor& srcActor)
+{
+	drawableComponents = srcActor.drawableComponents;
+	otherComponents = srcActor.otherComponents;
+}
 Actor& Actor::operator=(const Actor& srcActor)
 {
 	//check for self-assignment
@@ -38,9 +36,8 @@ Actor& Actor::operator=(const Actor& srcActor)
 	{
 		return *this;
 	}
-
-	animStateComponent_ = srcActor.animStateComponent_;
-	stateComponent_ = srcActor.stateComponent_;
-	healthComponent_ = srcActor.healthComponent_;
+	drawableComponents = srcActor.drawableComponents;
+	otherComponents = srcActor.otherComponents;
+	
 	return *this;
 }

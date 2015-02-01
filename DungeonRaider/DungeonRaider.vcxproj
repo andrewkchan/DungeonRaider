@@ -108,6 +108,8 @@
   <ItemGroup>
     <ClInclude Include="..\..\Vector2\Vector2\EVector2.h" />
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="DrawableComponent.h" />
+    <ClInclude Include="InputComponent.h" />
     <ClInclude Include="Sequence.h" />
     <ClInclude Include="AnimState.h" />
     <ClInclude Include="AnimStateComponent.h" />

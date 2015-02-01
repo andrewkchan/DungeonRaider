@@ -6,8 +6,9 @@ class Actor;
 class StateController;
 
 #include "StateController.h"
+#include "Component.h"
 
-class StateComponent
+class StateComponent : public Component
 {
 	/*
 	Class StateComponent
@@ -26,7 +27,7 @@ public:
 
 	
 	void setStateController(StateController* controller);
-	void update(double frameTime, Actor* actor);
+	void update(float frameTime, Actor& actor);
 
 	StateComponent& operator=(const StateComponent& stateComponent);
 };

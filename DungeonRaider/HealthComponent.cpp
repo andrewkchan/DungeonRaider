@@ -1,5 +1,12 @@
 #include "HealthComponent.h"
 
+void HealthComponent::update(float frameTime, Actor& actor)
+{
+	if (health_ <= 0) //note: invulnerable things can still die
+	{
+		isAlive_ = false;
+	}
+}
 HealthComponent& HealthComponent::operator=(const HealthComponent& healthComponent)
 {
 	//check self-assignment

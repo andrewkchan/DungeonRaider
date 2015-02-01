@@ -3,6 +3,9 @@
 
 
 #include "Character.h"
+#include "Animation.h"
+#include "AnimState.h"
+#include "AnimStateComponent.h"
 #include "GameState.h"
 
 class CharacterManager
@@ -46,7 +49,7 @@ public:
 
 		AnimStateComponent skeletonAnimator(skeletonTextures.getTexture("skeleton_idle"), &skeletonAnimController); //copied by value into prototype, so no need for heap allocation
 
-		skeletonPrototype = new Character(&skeletonAttributes, skeletonAnimator);
+		skeletonPrototype = new Character(&skeletonAttributes);
 	}
 	~CharacterManager()
 	{
@@ -58,7 +61,7 @@ public:
 
 	void instantiateSkeleton();
 	void pushCharacter(Character newCharacter);
-	void update(double frameTime); //update all Characters in the current frame
+	void update(float frameTime); //update all Characters in the current frame
 	void draw(sf::RenderWindow& window); //draw all Characters in the current frame
 	int getNumCharacters() { return characters.size(); }
 };

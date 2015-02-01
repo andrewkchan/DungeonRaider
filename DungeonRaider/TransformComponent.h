@@ -8,10 +8,10 @@
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
 #include <gtx/norm.hpp>
+#include "Component.h"
 
 
-
-class TransformComponent
+class TransformComponent : public Component
 {
 	/*
 	Class MotionComponent
@@ -52,6 +52,9 @@ public:
 	void setPosition(float x, float y, float z) { pos_ = glm::vec4(x, y, z, 1.0f); }
 	void setVelocity(float x, float y, float z) { pos_ = glm::vec4(x, y, z, 0.0f); }
 	void setAbsMaxSpeed(float absMaxSpeed) { absMaxSpeed_ = absMaxSpeed; }
+
+
+	virtual void update(float frameTime, Actor& actor);
 
 	TransformComponent& operator=(const TransformComponent& component);
 };

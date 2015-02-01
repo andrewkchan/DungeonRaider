@@ -1,7 +1,7 @@
 #include "Character.h"
 
 
-void Character::update(double frameTime)
+void Character::update(float frameTime)
 {
 	//todo: make this!
 }

@@ -5,12 +5,12 @@
 class AnimStateController;
 class Actor;
 
-
+#include "DrawableComponent.h"
 #include "AnimStateController.h"
 
 
 
-class AnimStateComponent
+class AnimStateComponent : public DrawableComponent
 {
 	/*
 	Class AnimStateComponent
@@ -31,8 +31,8 @@ public:
 	AnimStateComponent(const AnimStateComponent& animStateComponent);
 
 	void setStateController(AnimStateController* controller);
-	void update(double frameTime, Actor* actor);
-	sf::Sprite& onDraw();
+	virtual void update(float frameTime, Actor& actor);
+	virtual sf::Sprite& onDraw();
 
 	AnimStateComponent& operator=(const AnimStateComponent& animStateComponent);
 };

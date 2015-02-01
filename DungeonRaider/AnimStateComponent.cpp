@@ -35,11 +35,11 @@ void AnimStateComponent::setStateController(AnimStateController* controller)
 	//leave the game to deal with the old AnimStateController
 }
 
-void AnimStateComponent::update(double frameTime, Actor* actor)
+void AnimStateComponent::update(float frameTime, Actor& actor)
 {
 	if (stateController_)
 	{
-		int nextState = stateController_->updateState(frameTime, *actor, indexOfCurrentState_);
+		int nextState = stateController_->updateState(frameTime, actor, indexOfCurrentState_);
 		if (nextState != indexOfCurrentState_)
 		{
 			//get the time elapsed since we SHOULD have changed state

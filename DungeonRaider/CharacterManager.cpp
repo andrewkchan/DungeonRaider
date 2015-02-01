@@ -12,10 +12,10 @@ void CharacterManager::draw(sf::RenderWindow& window)
 {
 	for (size_t i = 0; i < characters.size(); i++)
 	{
-		window.draw(characters[i].animStateComponent_.onDraw());
+		//todo
 	}
 }
-void CharacterManager::update(double frameTime)
+void CharacterManager::update(float frameTime)
 {
 	for (size_t i = 0; i < characters.size(); i++)
 	{

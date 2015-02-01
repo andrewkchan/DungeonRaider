@@ -1,17 +1,18 @@
 #ifndef HEALTHCOMPONENT_H
 #define HEALTHCOMPONENT_H
 
+#include "Component.h"
 
+/*
+Class HealthComponent
 
-class HealthComponent
+This class manages character health. It takes care of taking damage for the character, adding health,
+setting health, determining if the character should be dead or not, and determing whether the character's
+health exceeds max health and all that stuff.
+*/
+class HealthComponent : public Component
 {
-	/*
-	Class HealthComponent
-
-	This class manages character health. It takes care of taking damage for the character, adding health,
-	setting health, determining if the character should be dead or not, and determing whether the character's
-	health exceeds max health and all that stuff.
-	*/
+	
 private:
 	int maxHealth_;
 	int health_;
@@ -37,13 +38,7 @@ public:
 		if (!isInvulnerable_)
 			health_ -= damage;
 	}
-	void update(double frameTime)
-	{
-		if (health_ <= 0) //note: invulnerable things can still die
-		{
-			isAlive_ = false;
-		}
-	}
+	virtual void update(float frameTime, Actor& actor);
 	void setIsInvulnerable(bool isInvulnerable)
 	{
 		isInvulnerable_ = isInvulnerable;
