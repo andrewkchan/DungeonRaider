@@ -42,8 +42,8 @@ void GameStatePlay::getInput(double deltaTime)
 			//resize the window
 
 
-			gameView_.setSize(latestEvent_.size.width, latestEvent_.size.height);
-			guiView_.setSize(latestEvent_.size.width, latestEvent_.size.height);
+			gameView_.setSize(static_cast<float>(latestEvent_.size.width), static_cast<float>(latestEvent_.size.height));
+			guiView_.setSize(static_cast<float>(latestEvent_.size.width), static_cast<float>(latestEvent_.size.height));
 			//resize the background along with the resized window
 			//pin background to window center
 			background_.setPosition(game_->window.mapPixelToCoords(sf::Vector2i(0, 0)));

@@ -9,52 +9,59 @@
 #include <gtc/type_ptr.hpp>
 #include <gtx/norm.hpp>
 #include "Component.h"
+#include <SFML/Graphics.hpp> //for conversion to 2D coordinates
 
 
 class TransformComponent : public Component
 {
 	/*
-	Class MotionComponent
+	Class TransformComponent
 
 	This component describes all positional and motional properties of an actor at any given time,
 	for example: position, velocity, and direction.
 	*/
 private:
-	glm::vec4 pos_;
-	glm::vec4 velocity_;
+	glm::vec4 pos_; //the world coordinates and rotation of the actor represented as a 4x1 vector, with 4th element = 1
+	glm::vec4 direction_; //the current velocity of the actor, with 4th element = 0
 
-	float absMaxSpeed_; //the absolute value of the maximum speed of the actor, -1.0 if infinite
+	sf::Transformable pos2D_; //the world coordinates of the actor converted to 2D
 public:
 	TransformComponent(glm::vec4 pos = glm::vec4(0.0f,0.0f,0.0f,1.0f), 
-		glm::vec4 velocity = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f), float absMaxSpeed = -1.0f) :
-		pos_(pos), velocity_(velocity), absMaxSpeed_(absMaxSpeed)
+		glm::vec4 direction = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f)) :
+		pos_(pos), 
+		direction_(direction)
 	{} //default constructor
 	TransformComponent(const TransformComponent& component)
 	{
 		pos_ = component.pos_;
-		velocity_ = component.velocity_;
-		absMaxSpeed_ = component.absMaxSpeed_;
+		direction_ = component.direction_;
+		pos2D_ = component.pos2D_;
 	}
 	
 	glm::vec4 getPosition() { return pos_; }
-	glm::vec4 getVelocity() { return velocity_; }
-	float getSpeed() { return glm::length(velocity_); }
-	float getSpeedSquared() { return glm::length2(velocity_); }
-	float getAbsMaxSpeed() { return absMaxSpeed_; }
+	glm::vec4 getVelocity() { return direction_; }
+	float getSpeed() { return glm::length(direction_); }
+	float getSpeedSquared() { return glm::length2(direction_); }
 
-	float getVelocityX() { return velocity_.x; }
-	float getVelocityY() { return velocity_.y; }
-	float getVelocityZ() { return velocity_.z; }
+	//get the horizontal velocity in the x-direction of the actor
+	float getDirectionX() { return direction_.x; }
+	//get the horizontal velocity in the y-direction of the actor
+	float getDirectionY() { return direction_.y; }
+	//get the vertical velocity of the actor
+	float getDirectionZ() { return direction_.z; }
 
 	void transformPosition(glm::mat4 transform) { pos_ = transform * pos_; }
-	void transformVelocity(glm::mat4 transform) { velocity_ = transform * velocity_; }
+	void transformDirection(glm::mat4 transform) { direction_ = transform * direction_; }
 
 	void setPosition(float x, float y, float z) { pos_ = glm::vec4(x, y, z, 1.0f); }
-	void setVelocity(float x, float y, float z) { pos_ = glm::vec4(x, y, z, 0.0f); }
-	void setAbsMaxSpeed(float absMaxSpeed) { absMaxSpeed_ = absMaxSpeed; }
+	void setDirection(float x, float y, float z) { pos_ = glm::vec4(x, y, z, 0.0f); }
+
+	void translatePosition(glm::vec4 translation) { pos_ += translation; }
+	void translatePosition(float x, float y, float z) { pos_ += glm::vec4(x, y, z, 0.0f); }
 
 
 	virtual void update(float frameTime, Actor& actor);
+	virtual sf::Transform get2DTransform() const;
 
 	TransformComponent& operator=(const TransformComponent& component);
 };

@@ -28,9 +28,6 @@
     <Filter Include="Source Files\Controller\Commands">
       <UniqueIdentifier>{5afb5b3d-046b-4192-b8c4-1f276a0f6145}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Entity\PhysicalInfo">
-      <UniqueIdentifier>{88435d0c-a30a-483c-8991-258649d446e1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\World">
       <UniqueIdentifier>{f028af44-046e-4c56-a004-ed01af9d646d}</UniqueIdentifier>
     </Filter>
@@ -153,6 +150,9 @@
     <ClCompile Include="TransformComponent.cpp">
       <Filter>Source Files\Components\NonDrawableComponents</Filter>
     </ClCompile>
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>Source Files\Components\NonDrawableComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -173,9 +173,6 @@
     <ClInclude Include="PlayerController.h">
       <Filter>Source Files\Controller</Filter>
     </ClInclude>
-    <ClInclude Include="Attributes.h">
-      <Filter>Source Files\Entity\PhysicalInfo</Filter>
-    </ClInclude>
     <ClInclude Include="MoveBackwardCommand.h">
       <Filter>Source Files\Controller\Commands</Filter>
     </ClInclude>
@@ -193,9 +190,6 @@
     </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>Source Files\World</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicalState.h">
-      <Filter>Source Files\Entity\PhysicalInfo</Filter>
     </ClInclude>
     <ClInclude Include="TexturePtr.h">
       <Filter>Source Files\Components\DrawableComponents\GraphicsDependencies\SpriteDependencies</Filter>
@@ -283,6 +277,15 @@
     </ClInclude>
     <ClInclude Include="InputComponent.h">
       <Filter>Source Files\Components\NonDrawableComponents\InputComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticSpriteComponent.h">
+      <Filter>Source Files\Components\DrawableComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>Source Files\Components\NonDrawableComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

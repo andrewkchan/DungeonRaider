@@ -3,6 +3,8 @@
 
 
 #include "GameState.h"
+#include "TextureLibrary.h"
+#include "Actor.h"
 
 /*
 Brief: The state of the main menu of the game.
@@ -13,6 +15,8 @@ private:
 	sf::View view_;
 
 	sf::Event latestEvent_;
+	TextureLibrary frontEndTextures_;
+	Actor* skeleton;
 public:
 	GameStateMainMenu(Game* game);
 	virtual ~GameStateMainMenu();

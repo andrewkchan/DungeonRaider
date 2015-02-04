@@ -1,11 +1,24 @@
 #include "GameStateMainMenu.h"
 #include <SFML/Graphics.hpp>
+#include "StaticSpriteComponent.h"
+#include "PhysicsComponent.h"
 
 GameStateMainMenu::GameStateMainMenu(Game* game) : GameState(game)
 {
 	sf::Vector2f windowSize = sf::Vector2f(game_->window.getSize());
 	view_.setSize(windowSize);
 	view_.setCenter(0.5f * windowSize);
+
+	skeleton = new Actor();
+	frontEndTextures_.loadTexture("skeleton_idle", "Textures/skeleton_idle.png");
+	sf::Sprite skeletonSprite;
+	skeletonSprite.setTexture(frontEndTextures_.getTexture("skeleton_idle"));
+	skeletonSprite.setScale(0.1f, 0.1f);
+	skeleton->addDrawableComponent(new StaticSpriteComponent(skeletonSprite));
+	skeleton->addOtherComponent(new PhysicsComponent(120.0f, -9.8f));
+	PhysicsComponent* skp = skeleton->getOtherComponent<PhysicsComponent>();
+	if (skp)
+		skp->setAcceleration(0.0f, 0.0f, 0.0f);
 }
 GameStateMainMenu::~GameStateMainMenu()
 {}
@@ -15,10 +28,12 @@ void GameStateMainMenu::draw()
 	game_->window.setView(view_);
 
 	game_->window.draw(background_);
+
+	skeleton->drawToWindow(game_->window);
 }
 void GameStateMainMenu::update(double deltaTime)
 {
-
+	skeleton->update(static_cast<float>(deltaTime));
 }
 void GameStateMainMenu::getInput(double deltaTime)
 {

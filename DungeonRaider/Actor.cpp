@@ -12,7 +12,7 @@ void Actor::update(float frameTime)
 	{
 		drawableComponents[i]->update(frameTime, *this);
 	}
-	
+	transformComponent.update(frameTime, *this);
 
 }
 void Actor::addOtherComponent(Component* component)
@@ -24,10 +24,56 @@ void Actor::addDrawableComponent(DrawableComponent* component)
 	drawableComponents.push_back(component);
 }
 
-Actor::Actor(const Actor& srcActor)
+void Actor::drawToWindow(sf::RenderWindow& window)
+{
+	for (unsigned int i = 0; i < drawableComponents.size(); i++)
+	{
+		window.draw(drawableComponents[i]->onDraw(), transformComponent.get2DTransform());
+	}
+}
+Component* Actor::getOtherComponentAt(unsigned int index)
+{
+	if (index >= otherComponents.size())
+	{
+		return 0;
+	}
+	else
+	{
+		return otherComponents[index];
+	}
+}
+DrawableComponent* Actor::getDrawableComponentAt(unsigned int index)
+{
+	if (index >= drawableComponents.size())
+	{
+		return 0;
+	}
+	else
+	{
+		return drawableComponents[index];
+	}
+}
+
+//====================================================================================
+//					Constructors and Operators
+//====================================================================================
+
+Actor::Actor(const Actor& srcActor) : Entity()
 {
 	drawableComponents = srcActor.drawableComponents;
 	otherComponents = srcActor.otherComponents;
+	transformComponent = srcActor.transformComponent;
+}
+Actor::~Actor()
+{
+	for (unsigned int i = 0; i < drawableComponents.size(); i++)
+	{
+		delete drawableComponents[i];
+	}
+	for (unsigned int i = 0; i < otherComponents.size(); i++)
+	{
+		delete otherComponents[i];
+	}
 }
 Actor& Actor::operator=(const Actor& srcActor)
 {
@@ -38,6 +84,7 @@ Actor& Actor::operator=(const Actor& srcActor)
 	}
 	drawableComponents = srcActor.drawableComponents;
 	otherComponents = srcActor.otherComponents;
+	transformComponent = srcActor.transformComponent;
 	
 	return *this;
 }
