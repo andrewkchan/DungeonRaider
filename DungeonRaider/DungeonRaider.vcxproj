@@ -91,10 +91,6 @@
     <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MoveBackwardCommand.cpp" />
-    <ClCompile Include="MoveForwardCommand.cpp" />
-    <ClCompile Include="MoveLeftCommand.cpp" />
-    <ClCompile Include="MoveRightCommand.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="EVector3.cpp" />
@@ -103,6 +99,7 @@
     <ClCompile Include="StateComponent.cpp" />
     <ClCompile Include="StateController.cpp" />
     <ClCompile Include="TextureLibrary.cpp" />
+    <ClCompile Include="Tracker.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="Transition.cpp" />
   </ItemGroup>
@@ -110,7 +107,10 @@
     <ClInclude Include="..\..\Vector2\Vector2\EVector2.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="DrawableComponent.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="MoveCommand.h" />
+    <ClInclude Include="Tracker.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="Sequence.h" />
     <ClInclude Include="AnimState.h" />
@@ -132,17 +132,13 @@
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="JumpCommand.h" />
     <ClInclude Include="Material.h" />
-    <ClInclude Include="MoveBackwardCommand.h" />
-    <ClInclude Include="MoveForwardCommand.h" />
-    <ClInclude Include="MoveLeftCommand.h" />
-    <ClInclude Include="MoveRightCommand.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateComponent.h" />
     <ClInclude Include="StateController.h" />
     <ClInclude Include="StaticSpriteComponent.h" />
-    <ClInclude Include="Subject.h" />
+    <ClInclude Include="Tracked.h" />
     <ClInclude Include="TextureLibrary.h" />
     <ClInclude Include="TexturePtr.h" />
     <ClInclude Include="EVector3.h" />

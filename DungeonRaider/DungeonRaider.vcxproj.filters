@@ -69,18 +69,6 @@
     <ClCompile Include="PlayerController.cpp">
       <Filter>Source Files\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="MoveForwardCommand.cpp">
-      <Filter>Source Files\Controller\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveBackwardCommand.cpp">
-      <Filter>Source Files\Controller\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveLeftCommand.cpp">
-      <Filter>Source Files\Controller\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveRightCommand.cpp">
-      <Filter>Source Files\Controller\Commands</Filter>
-    </ClCompile>
     <ClCompile Include="JumpCommand.cpp">
       <Filter>Source Files\Controller\Commands</Filter>
     </ClCompile>
@@ -153,6 +141,9 @@
     <ClCompile Include="PhysicsComponent.cpp">
       <Filter>Source Files\Components\NonDrawableComponents</Filter>
     </ClCompile>
+    <ClCompile Include="Tracker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -167,20 +158,8 @@
     <ClInclude Include="Controller.h">
       <Filter>Source Files\Controller</Filter>
     </ClInclude>
-    <ClInclude Include="MoveForwardCommand.h">
-      <Filter>Source Files\Controller\Commands</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerController.h">
       <Filter>Source Files\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveBackwardCommand.h">
-      <Filter>Source Files\Controller\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveLeftCommand.h">
-      <Filter>Source Files\Controller\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveRightCommand.h">
-      <Filter>Source Files\Controller\Commands</Filter>
     </ClInclude>
     <ClInclude Include="JumpCommand.h">
       <Filter>Source Files\Controller\Commands</Filter>
@@ -284,8 +263,17 @@
     <ClInclude Include="PhysicsComponent.h">
       <Filter>Source Files\Components\NonDrawableComponents</Filter>
     </ClInclude>
-    <ClInclude Include="Subject.h">
-      <Filter>Source Files\Components</Filter>
+    <ClInclude Include="MoveCommand.h">
+      <Filter>Source Files\Controller\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tracked.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tracker.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

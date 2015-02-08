@@ -1,6 +1,7 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
+#include "Tracked.h"
 
 //fwd declarations of dependencies
 class Actor;
@@ -10,7 +11,7 @@ Class Component
 
 This class is the pure virtual base class for all actor components.
 */
-class Component
+class Component : public Tracked
 {
 	/*
 	Class Component

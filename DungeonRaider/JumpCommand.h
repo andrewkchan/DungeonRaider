@@ -20,7 +20,7 @@ public:
 	}
 	~JumpCommand(){} //destructor
 
-	virtual void execute(Character& Character);
+	virtual void execute(Actor& Character);
 
 };
 

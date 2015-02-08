@@ -1,8 +1,8 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#include "Character.h"
-
+//fwd declarations
+class Actor;
 
 class Command
 {
@@ -16,7 +16,7 @@ class Command
 private:
 public:
 	virtual ~Command(){};
-	virtual void execute(Character& Character) = 0;
+	virtual void execute(Actor& actor) = 0;
 };
 
 

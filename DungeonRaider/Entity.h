@@ -27,9 +27,20 @@ public:
 	{
 		//default constructor
 	}
+	Entity(const Entity& entity) : _ID(entity._ID) {}
 	virtual ~Entity() {}; //destructor
 	int getID() { return _ID; }; //accessor for unique ID
 
+	Entity& operator=(const Entity& entity)
+	{
+		if (&entity == this)
+		{
+			return *this;
+		}
+
+		_ID = entity._ID;
+		return *this;
+	}
 };
 
 

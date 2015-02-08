@@ -4,6 +4,8 @@
 
 #include "Entity.h"
 #include "Component.h"
+#include "Tracker.h"
+#include "Tracked.h"
 #include "DrawableComponent.h"
 #include "TransformComponent.h"
 #include <vector>
@@ -125,6 +127,52 @@ public:
 			}
 		}
 		return 0;
+	}
+
+	template<class ComponentType>
+	/*
+	Sets a given tracker to track the first (non-drawn) component the actor has of the specified type, null if none.
+	This allows for safe handling of component addresses, which are liable to change.
+
+	Ex: Actor::trackOtherComponent<HealthComponent>(lifeChecker)
+	will set a Tracker object lifeChecker to track the first HealthComponent that the specified Actor possesses.
+	*/
+	void trackOtherComponent(Tracker& tracker)
+	{
+		ComponentType* output = 0;
+		for (unsigned int i = 0; i < otherComponents.size(); i++)
+		{
+			output = dynamic_cast<ComponentType*>(otherComponents[i]);
+			if (output)
+			{
+				tracker.setNewSubject(static_cast<Tracked*>(output));
+				return;
+			}
+		}
+		tracker.setNewSubject(output); //track null if component not found
+	}
+
+	template<class DrawableComponentType>
+	/*
+	Sets a given tracker to track the first drawable component the actor has of the specified type, null if none.
+	This allows for safe handling of component addresses, which are liable to change.
+
+	Ex: Actor::trackOtherComponent<SpriteComponent>(spriteChecker)
+	will set a Tracker object spriteChecker to track the first SpriteComponent that the specified Actor possesses.
+	*/
+	void trackDrawableComponent(Tracker& tracker)
+	{
+		DrawableComponentType* output = 0;
+		for (unsigned int i = 0; i < drawableComponents.size(); i++)
+		{
+			output = dynamic_cast<DrawableComponentType*>(drawableComponents[i]);
+			if (output)
+			{
+				tracker.setNewSubject(static_cast<Tracked*>(output));
+				return;
+			}
+		}
+		tracker.setNewSubject(0);
 	}
 
 	Actor& operator=(const Actor& srcActor);

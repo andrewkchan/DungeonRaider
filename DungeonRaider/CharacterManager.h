@@ -3,9 +3,6 @@
 
 
 #include "Character.h"
-#include "Animation.h"
-#include "AnimState.h"
-#include "AnimStateComponent.h"
 #include "GameState.h"
 
 class CharacterManager
@@ -20,43 +17,15 @@ class CharacterManager
 	*/
 private:
 	std::vector<Character> characters;
-
-	Attributes skeletonAttributes;
-	Character* skeletonPrototype;
-	AnimStateController skeletonAnimController;
-
-	TextureLibrary skeletonTextures;
 public:
 	CharacterManager()
 	{
-		//default constructor
-
-		//initialize/define prototypes
-		
-		skeletonAttributes.canBreatheUnderwater = true;
-		skeletonAttributes.isPoisonImmune = true;
-		skeletonAttributes.maxHealth = 100;
-		skeletonAttributes.maxJumpSpeed = 0.0;
-		skeletonAttributes.maxMoveSpeed = 2.0;
-		skeletonAttributes.maxQuickMoveSpeed = 3.0;
-
-		skeletonTextures.loadTexture("skeleton_idle", "Textures/skeleton_idle.png");
-		Animation skeletonIdle(sf::IntRect(0, 0, 320, 320));
-		AnimState skeletonIdleState("idle", skeletonIdle);
-
-		skeletonAnimController.addPossibleState(skeletonIdleState);
-		skeletonAnimController.setDefaultState("idle");
-
-		AnimStateComponent skeletonAnimator(skeletonTextures.getTexture("skeleton_idle"), &skeletonAnimController); //copied by value into prototype, so no need for heap allocation
-
-		skeletonPrototype = new Character(&skeletonAttributes);
+		//default constructor		
 	}
 	~CharacterManager()
 	{
 		//destructor
 		characters.clear();
-		delete skeletonPrototype;
-		skeletonPrototype = 0;
 	}
 
 	void instantiateSkeleton();

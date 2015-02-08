@@ -1,6 +1,6 @@
 #include "JumpCommand.h"
 
-void JumpCommand::execute(Character& Character)
+void JumpCommand::execute(Actor& Character)
 {
 	//todo
 }

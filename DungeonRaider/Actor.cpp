@@ -58,7 +58,7 @@ DrawableComponent* Actor::getDrawableComponentAt(unsigned int index)
 //					Constructors and Operators
 //====================================================================================
 
-Actor::Actor(const Actor& srcActor) : Entity()
+Actor::Actor(const Actor& srcActor) : Entity(srcActor)
 {
 	drawableComponents = srcActor.drawableComponents;
 	otherComponents = srcActor.otherComponents;
@@ -82,6 +82,7 @@ Actor& Actor::operator=(const Actor& srcActor)
 	{
 		return *this;
 	}
+	Entity::operator=(srcActor);
 	drawableComponents = srcActor.drawableComponents;
 	otherComponents = srcActor.otherComponents;
 	transformComponent = srcActor.transformComponent;
