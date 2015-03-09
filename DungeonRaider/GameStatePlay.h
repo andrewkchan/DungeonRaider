@@ -2,8 +2,9 @@
 #define GAMESTATEPLAY_H
 
 
-
+#include "TextureLibrary.h"
 #include "GameState.h"
+#include "Scene.h"
 
 /*
 Class GameStatePlay
@@ -17,7 +18,8 @@ private:
 
 	sf::Event latestEvent_;
 	
-	sf::Sprite background_;
+	Scene* currentScene;
+	TextureLibrary sharedPlayTextures;
 
 	void loadPlayTextures();
 

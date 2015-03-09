@@ -26,7 +26,7 @@ public:
 	}
 
 	virtual void update(float frameTime, Actor& actor){}
-	virtual sf::Sprite& onDraw()
+	virtual sf::Drawable& onDraw()
 	{
 		return sprite_;
 	}

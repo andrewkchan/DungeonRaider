@@ -3,10 +3,11 @@
 
 void Controller::linkCharacter(Character* inputCharacter)
 {
-	_Character = inputCharacter;
+	character_ = inputCharacter;
+	character_->controller = this;
 }
 void Controller::unlinkCharacter()
 {
-	_Character->controller = 0; //set Character's reference to this to null
-	_Character = 0; //don't delete the Character object, leave game to deal with it
+	character_->controller = 0; //set Character's reference to this to null
+	character_ = 0; //don't delete the Character object, leave game to deal with it
 }

@@ -2,12 +2,12 @@
 #define CONTROLLER_H
 
 
-
+#include "Entity.h"
 
 //forward declaration of dependencies
 class Character;
 
-class Controller
+class Controller : public Entity
 {
 	/*
 	Class Controller
@@ -25,21 +25,26 @@ class Controller
 	
 	*/
 protected:
-	Character* _Character;
+	Character* character_;
 public:
-	Controller() : _Character(0)
+	Controller() : character_(0)
 	{
 		//default constructor
+	}
+	Controller(const Controller& src) : Entity(src)
+	{
+
 	}
 	virtual ~Controller()
 	{
 		//destructor
-		_Character = 0; //do NOT delete the Character, leave the game to deal with it
+		character_ = 0; //do NOT delete the Character, leave the game to deal with it
 	}
-	void linkCharacter(Character* inputCharacter); //possess an Character
+	virtual void linkCharacter(Character* inputCharacter); //possess an Character
 	void unlinkCharacter(); //un-possess an Character
 	
-	virtual void handleInput();
+	virtual void handleInput(){}
+	virtual void update(float frameTime){}
 };
 
 

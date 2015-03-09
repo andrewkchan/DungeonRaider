@@ -4,16 +4,19 @@
 PhysicsComponent::PhysicsComponent(const PhysicsComponent& src)
 {
 	velocity_ = src.velocity_;
-	acceleration_ = src.acceleration_;
+	permAcceleration_ = src.permAcceleration_;
 	absMaxSpeed_ = src.absMaxSpeed_;
 }
 
 void PhysicsComponent::update(float frameTime, Actor& actor)
 {
-	velocity_ += frameTime * acceleration_;
-	if (glm::length(velocity_) > absMaxSpeed_)
+	currAcceleration_ += permAcceleration_;
+	velocity_ += frameTime * currAcceleration_;
+	if (absMaxSpeed_ > 0.0f && glm::length(velocity_) > absMaxSpeed_)
 	{
 		velocity_ = velocity_ * (absMaxSpeed_ / glm::length(velocity_));
 	}
 	actor.getTransform().translatePosition(frameTime * velocity_);
+
+	currAcceleration_ = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 }

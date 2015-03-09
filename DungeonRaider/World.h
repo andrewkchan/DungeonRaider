@@ -1,9 +1,11 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include "Material.h"
+#include <SFML/Graphics.hpp>
 
-
+/*
+Abstract base class describing world loaded and drawn for each game scene.
+*/
 class World
 {
 	/*
@@ -21,50 +23,40 @@ class World
 	A single tile covers non-negligible space in the world.
 	*/
 private:
-	Material* _tiles[400][400]; //this is NOT dynamically allocated - this is an array of Material pointers
-	//todo: add world background
-	Material GRASS;
-	Material DIRT;
-	Material STONE;
-	Material WATER;
-public:
-	World(Sprite& grassSprite, Sprite& dirtSprite, Sprite& stoneSprite, Sprite& waterSprite)
-		: GRASS(grassSprite, false, false), DIRT(dirtSprite, false, false), STONE(stoneSprite, false, false),
-		WATER(waterSprite, false, false)
-	{
-		//default constructor
-		for (int i = 0; i < 400; i++)
-		{
-			//cheap systematic assignment of tile materials, for now
-			for (int j = 0; j < 400; j++)
-			{
-				if (i % 3 == 0 && j % 5 == 0)
-				{
-					_tiles[i][j] = &WATER;
-				}
-				else
-				{
-					if (i % 2 == 0 && j % 3 == 0)
-					{
-						_tiles[i][j] = &DIRT;
-					}
-					else
-					{
-						if (j % 2 == 0)
-						{
-							_tiles[i][j] = &STONE;
-						}
-						else
-						{
-							_tiles[i][j] = &GRASS;
-						}
-					}
-				}
-			}
-		}
+	sf::Sprite background_;
 
+	//the angle in degrees from the horizontal that the X axis of an orthographic coordinate system would extend
+	//a common isometric coordinate system has about a 26.5 degree angle.
+	//a top-down coordinate system has a 0.0 degree angle
+	float orthographicAngleX; 
+	//the angle in degrees from the horizontal that the Y axis of an orthographic coordinate system would extend
+	float orthographicAngleY;
+protected:
+	//set the angle in degrees between the horizontal and the X axis of the orthographic coordinate system
+	void setOrthoAngleX(float orthoAngleX) { orthographicAngleX = orthoAngleX; }
+	//set the angle in degrees between the horizontal and the Y axis of the orthographic coordinate system
+	void setOrthoAngleY(float orthoAngleY) { orthographicAngleY = orthoAngleY; }
+
+	World(float orthoAngleX = 26.5f, float orthoAngleY = 26.5f) :
+		orthographicAngleX(orthoAngleX),
+		orthographicAngleY(orthoAngleY)
+	{
+		background_ = sf::Sprite();
 	}
+	World(sf::Texture& backgroundTex, float orthoAngleX = 26.5f, float orthoAngleY = 26.5f) :
+		orthographicAngleX(orthoAngleX),
+		orthographicAngleY(orthoAngleY)
+	{
+		background_.setTexture(backgroundTex);
+	}
+public:
+	virtual ~World(){}
+
 	
+	void drawToWindow(sf::RenderWindow& window)
+	{
+		window.draw(background_);
+	}
 };
 
 

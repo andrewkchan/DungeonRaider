@@ -1,7 +1,10 @@
 #include "GameStateMainMenu.h"
+#include "GameStatePlay.h"
 #include <SFML/Graphics.hpp>
 #include "StaticSpriteComponent.h"
 #include "PhysicsComponent.h"
+
+
 
 GameStateMainMenu::GameStateMainMenu(Game* game) : GameState(game)
 {
@@ -18,7 +21,7 @@ GameStateMainMenu::GameStateMainMenu(Game* game) : GameState(game)
 	skeleton->addOtherComponent(new PhysicsComponent(120.0f, -9.8f));
 	PhysicsComponent* skp = skeleton->getOtherComponent<PhysicsComponent>();
 	if (skp)
-		skp->setAcceleration(0.0f, 0.0f, 0.0f);
+		skp->setPermanentAcceleration(0.0f, 0.0f, 0.0f);
 }
 GameStateMainMenu::~GameStateMainMenu()
 {}
@@ -61,15 +64,20 @@ void GameStateMainMenu::getInput(double deltaTime)
 				//background_.setPosition(sf::Vector2f(0.0, 0.0));
 
 				//now set background scale
-				/*background_.setScale(
+				background_.setScale(
 					static_cast<float>(latestEvent_.size.width) / static_cast<float>(background_.getTexture()->getSize().x),
 					static_cast<float>(latestEvent_.size.height) / static_cast<float>(background_.getTexture()->getSize().y)
-					);*/
+					);
 				break;
 			}
 			case sf::Event::KeyPressed:
 			{
-				//todo: something to do with the window if the user presses ESCAPE
+				if (latestEvent_.key.code == sf::Keyboard::Escape)
+				{
+					enterPlayState();
+					//we destroy this instance after the above, so we must exit this loop to avoid referencing ourselves
+					return; 
+				}
 				break;
 			}
 			default:
@@ -80,4 +88,14 @@ void GameStateMainMenu::getInput(double deltaTime)
 		}
 	} //<---end event poll loop
 
+}
+
+
+//
+//-------Private Functions--------------
+//
+
+void GameStateMainMenu::enterPlayState()
+{
+	game_->swapState(new GameStatePlay(game_));
 }

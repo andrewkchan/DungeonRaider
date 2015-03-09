@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\VarTypes">
-      <UniqueIdentifier>{864e7d83-67fc-436f-a3db-5bc79e98dd6c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Entity">
       <UniqueIdentifier>{cb0a34b8-85e3-4888-8761-5c2903cb0195}</UniqueIdentifier>
     </Filter>
@@ -27,9 +24,6 @@
     </Filter>
     <Filter Include="Source Files\Controller\Commands">
       <UniqueIdentifier>{5afb5b3d-046b-4192-b8c4-1f276a0f6145}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\World">
-      <UniqueIdentifier>{f028af44-046e-4c56-a004-ed01af9d646d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Components\States">
       <UniqueIdentifier>{e2d4bd30-4dd7-4289-bace-d92c06d7e2f8}</UniqueIdentifier>
@@ -55,6 +49,21 @@
     <Filter Include="Source Files\Components\NonDrawableComponents\InputComponents">
       <UniqueIdentifier>{d5109be6-f8c5-4d49-9603-d112074c667f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Scene">
+      <UniqueIdentifier>{ad4724cd-f06f-4136-814f-4e7d5779c7a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\World">
+      <UniqueIdentifier>{f028af44-046e-4c56-a004-ed01af9d646d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\GUIComponents">
+      <UniqueIdentifier>{9bc39a6a-468c-4378-872b-34eeaf7e99a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\GUIComponents\TextComponentExtensions">
+      <UniqueIdentifier>{75b93c93-9a20-475d-a639-f6668fb51e7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LearningStuff">
+      <UniqueIdentifier>{097dc00d-6635-44ee-91d8-e6bb207a18a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -74,12 +83,6 @@
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Vector2\Vector2\EVector2.cpp">
-      <Filter>Source Files\VarTypes</Filter>
-    </ClCompile>
-    <ClCompile Include="EVector3.cpp">
-      <Filter>Source Files\VarTypes</Filter>
     </ClCompile>
     <ClCompile Include="Character.cpp">
       <Filter>Source Files\Entity</Filter>
@@ -144,6 +147,21 @@
     <ClCompile Include="Tracker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FlyCommand.cpp">
+      <Filter>Source Files\Controller\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIEntity.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGLFunctions.cpp">
+      <Filter>Source Files\LearningStuff</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGLTexture.cpp">
+      <Filter>Source Files\LearningStuff</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -165,19 +183,13 @@
       <Filter>Source Files\Controller\Commands</Filter>
     </ClInclude>
     <ClInclude Include="World.h">
-      <Filter>Source Files\World</Filter>
+      <Filter>Source Files\Scene\World</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
-      <Filter>Source Files\World</Filter>
+      <Filter>Source Files\Scene\World</Filter>
     </ClInclude>
     <ClInclude Include="TexturePtr.h">
       <Filter>Source Files\Components\DrawableComponents\GraphicsDependencies\SpriteDependencies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Vector2\Vector2\EVector2.h">
-      <Filter>Source Files\VarTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="EVector3.h">
-      <Filter>Source Files\VarTypes</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>Source Files\Entity</Filter>
@@ -263,9 +275,6 @@
     <ClInclude Include="PhysicsComponent.h">
       <Filter>Source Files\Components\NonDrawableComponents</Filter>
     </ClInclude>
-    <ClInclude Include="MoveCommand.h">
-      <Filter>Source Files\Controller\Commands</Filter>
-    </ClInclude>
     <ClInclude Include="Event.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -275,5 +284,57 @@
     <ClInclude Include="Tracker.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="FlyCommand.h">
+      <Filter>Source Files\Controller\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Source Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Aligned16.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AlignTest.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderComponent.h">
+      <Filter>Source Files\Components\NonDrawableComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIEntity.h">
+      <Filter>Source Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIComponent.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TextComponent.h">
+      <Filter>Source Files\Components\GUIComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatValueDisplayText.h">
+      <Filter>Source Files\Components\GUIComponents\TextComponentExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="ZWorld.h">
+      <Filter>Source Files\Scene\World</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyGLFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyGLTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DungeonRaider.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\background.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Textures\skeleton_idle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

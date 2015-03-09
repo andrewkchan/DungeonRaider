@@ -54,7 +54,7 @@ void AnimStateComponent::update(float frameTime, Actor& actor)
 	}
 }
 
-sf::Sprite& AnimStateComponent::onDraw()
+sf::Drawable& AnimStateComponent::onDraw()
 {
 	if (stateController_)
 		currentFrame_.setTextureRect(stateController_->OnDraw(indexOfCurrentState_, timeInCurrentState_));

@@ -11,11 +11,11 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
-
-#define GLM_FORCE_PURE //this stops "Error C2719" alignment errors with GLM Matrices on 32-bit systems
-						//the above error should be fixed by GLM 9.6.1
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
+
+//fwd declarations
+class World;
 
 
 
@@ -39,7 +39,7 @@ public:
 	/*
 	Default constructor, creates default (empty) component list.
 	*/
-	Actor(glm::vec4 inputPos = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f)) 
+	Actor(const glm::vec4& inputPos = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f)) 
 		: 
 		Entity(),
 		transformComponent(inputPos)
@@ -86,9 +86,18 @@ public:
 	Component* getOtherComponentAt(unsigned int index);
 	/*
 	Gets a pointer to the drawable component at the specified index of the Actor's drawable components.
-	NOTE: Memory addresses and indexes of components are very volatile.
+	NOTE: Memory addresses and indexes of components are not guaranteed const.
 	*/
 	DrawableComponent* getDrawableComponentAt(unsigned int index);
+
+	/*
+	Returns the number of non-drawn components owned by the actor.
+	*/
+	virtual unsigned int getNumOtherComponents() { return otherComponents.size(); }
+	/*
+	Returns the number of drawn components owned by the actor.
+	*/
+	virtual unsigned int getNumDrawableComponents() { return drawableComponents.size(); }
 
 	
 	template<class ComponentType>

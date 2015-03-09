@@ -1,10 +1,12 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-//fwd declarations
-class Actor;
+//#include "Aligned16.h"
 
-class Command
+//fwd declarations
+class Character;
+
+class Command// : public Aligned16
 {
 	/*
 	Class Command
@@ -15,8 +17,9 @@ class Command
 	*/
 private:
 public:
+	Command(){}
 	virtual ~Command(){};
-	virtual void execute(Actor& actor) = 0;
+	virtual void execute(Character& character) = 0;
 };
 
 

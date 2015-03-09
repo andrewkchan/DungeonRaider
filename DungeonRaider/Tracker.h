@@ -25,6 +25,11 @@ public:
 	{
 		subject_ = newLoc;
 	}
+	//get the subject that is currently being tracked
+	Tracked* getSubject()
+	{
+		return subject_;
+	}
 
 };
 

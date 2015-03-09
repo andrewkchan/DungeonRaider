@@ -64,7 +64,7 @@ public:
 	}
 
 	//tick function
-	virtual void update(float frameTime); //todo: make this
+	virtual void update(float frameTime);
 	/*
 	Gets the Character's central health component
 	*/

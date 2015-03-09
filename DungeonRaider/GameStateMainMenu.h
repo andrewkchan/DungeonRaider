@@ -17,6 +17,8 @@ private:
 	sf::Event latestEvent_;
 	TextureLibrary frontEndTextures_;
 	Actor* skeleton;
+
+	void enterPlayState();
 public:
 	GameStateMainMenu(Game* game);
 	virtual ~GameStateMainMenu();

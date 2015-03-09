@@ -1,8 +1,5 @@
-#ifndef MOTIONCOMPONENT_H
-#define MOTIONCOMPONENT_H
-
-#define GLM_FORCE_PURE //this stops "Error C2719" alignment errors with GLM Matrices on 32-bit systems
-						//the above error should be fixed by GLM 9.6.1
+#ifndef TRANSFORMCOMPONENT_H
+#define TRANSFORMCOMPONENT_H
 
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
@@ -26,8 +23,8 @@ private:
 
 	sf::Transformable pos2D_; //the world coordinates of the actor converted to 2D
 public:
-	TransformComponent(glm::vec4 pos = glm::vec4(0.0f,0.0f,0.0f,1.0f), 
-		glm::vec4 direction = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f)) :
+	TransformComponent(const glm::vec4& pos = glm::vec4(0.0f,0.0f,0.0f,1.0f), 
+		const glm::vec4& direction = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f)) :
 		pos_(pos), 
 		direction_(direction)
 	{} //default constructor
@@ -39,6 +36,9 @@ public:
 	}
 	
 	glm::vec4 getPosition() { return pos_; }
+	float getPositionX() { return pos_.x; }
+	float getPositionY() { return pos_.y; }
+	float getPositionZ() { return pos_.z; }
 	glm::vec4 getVelocity() { return direction_; }
 	float getSpeed() { return glm::length(direction_); }
 	float getSpeedSquared() { return glm::length2(direction_); }
@@ -50,13 +50,13 @@ public:
 	//get the vertical velocity of the actor
 	float getDirectionZ() { return direction_.z; }
 
-	void transformPosition(glm::mat4 transform) { pos_ = transform * pos_; }
-	void transformDirection(glm::mat4 transform) { direction_ = transform * direction_; }
+	void transformPosition(const glm::mat4& transform) { pos_ = transform * pos_; }
+	void transformDirection(const glm::mat4& transform) { direction_ = transform * direction_; }
 
 	void setPosition(float x, float y, float z) { pos_ = glm::vec4(x, y, z, 1.0f); }
 	void setDirection(float x, float y, float z) { pos_ = glm::vec4(x, y, z, 0.0f); }
 
-	void translatePosition(glm::vec4 translation) { pos_ += translation; }
+	void translatePosition(const glm::vec4& translation) { pos_ += translation; }
 	void translatePosition(float x, float y, float z) { pos_ += glm::vec4(x, y, z, 0.0f); }
 
 

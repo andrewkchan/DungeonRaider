@@ -5,7 +5,12 @@ Game::Game() :
 SCREEN_HEIGHT(480), SCREEN_WIDTH(640), verticalSyncEnabled(false), bRunGame(true)
 {
 	//default constructor
-	window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Dungeon Raider");
+
+	sf::ContextSettings settings;
+	settings.depthBits = 24;
+	settings.stencilBits = 8;
+
+	window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Dungeon Raider", sf::Style::Default, settings);
 	if (verticalSyncEnabled)
 	{
 		window.setVerticalSyncEnabled(true);

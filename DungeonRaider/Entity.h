@@ -31,6 +31,8 @@ public:
 	virtual ~Entity() {}; //destructor
 	int getID() { return _ID; }; //accessor for unique ID
 
+	virtual void update(float frameTime) = 0;
+
 	Entity& operator=(const Entity& entity)
 	{
 		if (&entity == this)

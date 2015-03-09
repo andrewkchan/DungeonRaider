@@ -47,15 +47,17 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\VisualStudioDevLibraries\glm\SOURCE\glm\glm;C:\Users\Andrew\AppData\Roaming\SFML-2.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\VisualStudioDevLibraries\glm\SOURCE\glm\glm;C:\Users\Andrew\Documents\Visual Studio 2013\Projects\DungeonRaider\DungeonRaider\glew-1.12.0\include;C:\Users\Andrew\AppData\Roaming\SFML-2.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;GLM_FORCE_PURE;GLM_FORCE_RADIANS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <CallingConvention>Cdecl</CallingConvention>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-audio-d.lib;sfml-graphics-d.lib;sfml-main-d.lib;sfml-network-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;Debug/Win32/glew32sd.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-main-d.lib;sfml-network-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\Andrew\AppData\Roaming\SFML-2.1\x86\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Andrew\Documents\Visual Studio 2013\Projects\DungeonRaider\DungeonRaider\glew-1.12.0\lib;C:\Users\Andrew\AppData\Roaming\SFML-2.1\x86\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ShowProgress>LinkVerboseLib</ShowProgress>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -73,7 +75,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Vector2\Vector2\EVector2.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="AnimState.cpp" />
     <ClCompile Include="AnimStateComponent.cpp" />
@@ -88,13 +89,17 @@
     <ClCompile Include="GameStateEditor.cpp" />
     <ClCompile Include="GameStateMainMenu.cpp" />
     <ClCompile Include="GameStatePlay.cpp" />
+    <ClCompile Include="GUIEntity.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="JumpCommand.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="FlyCommand.cpp" />
+    <ClCompile Include="MyGLFunctions.cpp" />
+    <ClCompile Include="MyGLTexture.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PlayerController.cpp" />
-    <ClCompile Include="EVector3.cpp" />
     <ClCompile Include="Sequence.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateComponent.cpp" />
     <ClCompile Include="StateController.cpp" />
@@ -104,12 +109,21 @@
     <ClCompile Include="Transition.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Vector2\Vector2\EVector2.h" />
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="Aligned16.h" />
+    <ClInclude Include="AlignTest.h" />
+    <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="DrawableComponent.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="GUIComponent.h" />
+    <ClInclude Include="GUIEntity.h" />
     <ClInclude Include="InputComponent.h" />
-    <ClInclude Include="MoveCommand.h" />
+    <ClInclude Include="FlyCommand.h" />
+    <ClInclude Include="MyGLTexture.h" />
+    <ClInclude Include="MyGLFunctions.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="TextComponent.h" />
     <ClInclude Include="Tracker.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="Sequence.h" />
@@ -141,12 +155,20 @@
     <ClInclude Include="Tracked.h" />
     <ClInclude Include="TextureLibrary.h" />
     <ClInclude Include="TexturePtr.h" />
-    <ClInclude Include="EVector3.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="Transition.h" />
     <ClInclude Include="TransitionRule.h" />
     <ClInclude Include="TransitionRuleBase.h" />
+    <ClInclude Include="FloatValueDisplayText.h" />
     <ClInclude Include="World.h" />
+    <ClInclude Include="ZWorld.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DungeonRaider.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\background.png" />
+    <Image Include="Textures\skeleton_idle.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

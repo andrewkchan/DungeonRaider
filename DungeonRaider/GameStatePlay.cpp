@@ -10,18 +10,22 @@ GameStatePlay::GameStatePlay(Game* game) : GameState(game)
 	gameView_.setCenter(0.5f * windowSize);
 	guiView_.setSize(0.5f * windowSize);
 
-	
+	currentScene = new Scene();
 }
 GameStatePlay::~GameStatePlay()
-{}
+{
+	delete currentScene;
+}
 
 void GameStatePlay::draw()
 {
 	game_->window.setView(gameView_);
+	//game_->window.draw(background_);
+	currentScene->drawToWindow(game_->window);
 }
 void GameStatePlay::update(double deltaTime)
 {
-
+	currentScene->update(static_cast<float>(deltaTime));
 }
 void GameStatePlay::getInput(double deltaTime)
 {
@@ -69,6 +73,8 @@ void GameStatePlay::getInput(double deltaTime)
 		}
 		}
 	} //<---end event poll loop
+
+	currentScene->getInput();
 }
 
 /*
@@ -76,7 +82,7 @@ void GameStatePlay::getInput(double deltaTime)
 */
 void GameStatePlay::loadPlayTextures()
 {
-	//TODO!
+	
 }
 void GameStatePlay::openMainMenu()
 {

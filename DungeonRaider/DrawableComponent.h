@@ -17,7 +17,7 @@ protected:
 public:
 	//we don't have to redefine void update(Actor& actor), because we're also an abstract class
 
-	virtual sf::Sprite& onDraw() = 0;
+	virtual sf::Drawable& onDraw() = 0;
 	virtual ~DrawableComponent(){}
 };
 
