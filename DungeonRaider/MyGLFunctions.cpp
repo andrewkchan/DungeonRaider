@@ -28,6 +28,25 @@ GLuint MyGLFunctions::createShader(GLenum type, const GLchar* shaderSrc)
 	GLuint outputShader = glCreateShader(type);
 	glShaderSource(outputShader, 1, &shaderSrc, 0);
 	glCompileShader(outputShader);
+
+	GLint status;
+	glGetShaderiv(outputShader, GL_COMPILE_STATUS, &status);
+	if (status != GL_TRUE)
+	{
+		printf("ERROR: Shader did not compile successfully!\n");
+		GLint maxLength = 0;
+		glGetShaderiv(outputShader, GL_INFO_LOG_LENGTH, &maxLength);
+
+		//max length includes null character
+		std::vector<GLchar> errorLog(maxLength);
+		glGetShaderInfoLog(outputShader, maxLength, &maxLength, &errorLog[0]);
+
+		for (unsigned int i = 0; i < errorLog.size() - 1; i++)
+		{
+			std::cout << errorLog[i];
+		}
+		std::cout << std::endl;
+	}
 	return outputShader;
 }
 

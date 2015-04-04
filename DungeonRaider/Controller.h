@@ -2,7 +2,7 @@
 #define CONTROLLER_H
 
 
-#include "Entity.h"
+#include "Entities/Entity.h"
 
 //forward declaration of dependencies
 class Character;

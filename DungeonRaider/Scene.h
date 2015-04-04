@@ -3,12 +3,15 @@
 
 #include "World.h"
 #include "TextureLibrary.h"
-#include <SFML/Graphics.hpp>
 
 
 //fwd declarations
 class Character;
 class PlayerController;
+namespace gWrap
+{
+	class Window;
+}
 
 #include "Character.h"
 #include "PlayerController.h"
@@ -33,7 +36,7 @@ public:
 
 	void getInput();
 	void update(float frameTime);
-	void drawToWindow(sf::RenderWindow& window);
+	void drawToWindow(gWrap::Window& window);
 };
 
 

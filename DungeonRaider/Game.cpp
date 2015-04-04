@@ -2,20 +2,10 @@
 #include "GameState.h"
 
 Game::Game() :
-SCREEN_HEIGHT(480), SCREEN_WIDTH(640), verticalSyncEnabled(false), bRunGame(true)
+SCREEN_HEIGHT(480), SCREEN_WIDTH(640), bRunGame(true)
 {
 	//default constructor
-
-	sf::ContextSettings settings;
-	settings.depthBits = 24;
-	settings.stencilBits = 8;
-
-	window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Dungeon Raider", sf::Style::Default, settings);
-	if (verticalSyncEnabled)
-	{
-		window.setVerticalSyncEnabled(true);
-	}
-	window.setFramerateLimit(120);
+	window.recreateWindowed(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	loadSharedTextures();
 }
@@ -66,7 +56,7 @@ void Game::runGameLoop()
 			peekState()->getInput(deltaTime);
 			peekState()->update(deltaTime);
 			//clears buffer of previous frame
-			window.clear(sf::Color::Black);
+			window.clear(0, 0, 0); //clear with black color
 			//draw current frame
 			peekState()->draw();
 			//bring image from back to front buffer

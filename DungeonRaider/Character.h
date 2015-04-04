@@ -1,9 +1,9 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include "Actor.h"
-#include "HealthComponent.h"
-#include "PhysicsComponent.h"
+#include "Entities\Actor.h"
+#include "Components\HealthComponent.h"
+#include "Components\PhysicsComponent.h"
 #include "Controller.h"
 
 //forward declarations of dependencies

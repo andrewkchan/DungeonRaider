@@ -1,4 +1,5 @@
-#include "GUIEntity.h"
+#include "Entities\GUIEntity.h"
+#include "Components\GUIComponent.h"
 
 void GUIEntity::drawToWindow(sf::RenderWindow& window)
 {

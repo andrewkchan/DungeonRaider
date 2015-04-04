@@ -1,10 +1,10 @@
 #ifndef TEXTCOMPONENT_H
 #define TEXTCOMPONENT_H
 
-#include "GUIComponent.h"
+#include "Components\GUIComponent.h"
 #include <SFML/Graphics.hpp>
 #include "Tracker.h"
-#include "TransformComponent.h"
+#include "Components\TransformComponent.h"
 
 class TextComponent : public GUIComponent
 {

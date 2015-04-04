@@ -1,6 +1,7 @@
 #include "Scene.h"
-#include "StaticSpriteComponent.h"
+#include "Components\StaticSpriteComponent.h"
 #include "ZWorld.h"
+#include "GraphicsWrappers\Window.h"
 
 Scene::Scene()
 {
@@ -9,28 +10,13 @@ Scene::Scene()
 	sf::Sprite skeletonSprite;
 	skeletonSprite.setTexture(levelTextures.getTexture("skeleton_idle"));
 	skeletonSprite.setScale(0.1f, 0.1f);
-
-	skelly.addDrawableComponent(new StaticSpriteComponent(skeletonSprite));
-	pc.linkCharacter(&skelly);
-
 }
 Scene::Scene(sf::Texture& backgroundTex)
 {
 	world = new ZWorld();
-
-	levelTextures.loadTexture("skeleton", "Textures/skeleton_idle.png");
-	sf::Sprite skeletonSprite;
-	skeletonSprite.setTexture(levelTextures.getTexture("skeleton_idle"));
-	skeletonSprite.setScale(0.1f, 0.1f);
-
-	skelly.addDrawableComponent(new StaticSpriteComponent(skeletonSprite));
-	pc.linkCharacter(&skelly);
-	skelly.getPhysicsComponent().setAbsMaxSpeed(10.0f);
 }
-void Scene::drawToWindow(sf::RenderWindow& window)
+void Scene::drawToWindow(gWrap::Window& window)
 {
-	//world.drawToWindow(window);
-	skelly.drawToWindow(window);
 	pc.drawGUIToWindow(window);
 }
 void Scene::update(float frameTime)

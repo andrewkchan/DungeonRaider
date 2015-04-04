@@ -5,10 +5,7 @@
 class GameState;
 
 #include <stack>
-#include <SFML/Window.hpp>
-//#include <SFML/System.hpp>
-//#include <SFML/Config.hpp>
-#include <SFML/Graphics.hpp>
+#include "GraphicsWrappers\Window.h"
 #include <iostream>
 #include "TextureLibrary.h"
 
@@ -29,13 +26,12 @@ private:
 
 	const int SCREEN_HEIGHT; //constants initialized in Game.cpp
 	const int SCREEN_WIDTH;
-	bool verticalSyncEnabled;
 	bool bRunGame;
 
 	void loadSharedTextures();
 public:
 	TextureLibrary sharedTextures_;
-	sf::RenderWindow window;
+	gWrap::Window window;
 
 	Game();
 	~Game();

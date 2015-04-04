@@ -10,6 +10,9 @@
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
 
+#include "GraphicsWrappers\Window.h"
+#include "GraphicsWrappers\GLCheck.h"
+
 /*
 Dungeon Raider, an isometric 2D procedurally generated action-RPG.
 
@@ -33,90 +36,172 @@ int main(int argc, char* args[])
 }
 */
 
+#include "GraphicsWrappers\Sprite.h"
+#include "GraphicsWrappers\Texture.h"
 
-char buffer[512]; //debug log buffer
+int main(int argc, char* args[])
+{
+	gWrap::Window window;
+	window.recreateWindowed(800, 600);
 
+	sf::Texture diffuse;
+	diffuse.loadFromFile("Textures/calcunaut1.png");
+	sf::Texture depth;
+	depth.loadFromFile("Textures/calcunaut1depth.png");
+	sf::Texture background;
+	background.loadFromFile("UserData/Captures/capture01.png");
 
+	gWrap::Sprite sprite;
+	sprite.setDiffuseTex(diffuse);
+	sprite.setDepthTex(depth);
+	gWrap::Sprite back;
+	back.setDiffuseTex(background);
+	back.setDepthTex(background);
+	back.setOrigin(0.0f, 0.0f);
+
+	gWrap::Sprite sprite2;
+	sprite2.setDiffuseTex(diffuse);
+	sprite2.setDepthTex(depth);
+	sprite2.setPosition(100.0f, 0.0f);
+
+	sf::Transformable spriteTransform;
+	float spriteX = 0.0f;
+	float spriteY = 0.0f;
+
+	sf::View view1;
+	view1.setSize(sf::Vector2f(400, 400));
+	view1.setCenter(2.0f, 2.0f);
+	window.setView(view1);
+	
+
+	while (window.isOpen())
+	{
+		window.switchToPostBuffer();
+		window.clear(255, 255, 255);
+		window.clearDepth();
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			spriteX += -1.0f;
+			std::cout << "x:\t" << spriteX << "y:\t" << spriteY << std::endl;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			spriteX += 1.0f;
+			std::cout << "x:\t" << spriteX << "y:\t" << spriteY << std::endl;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			spriteY += 1.0f;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			spriteY += -1.0f;
+		}
+		//spriteTransform.setPosition(sf::Vector2f(spriteX, spriteY));
+		sprite.setPosition(sf::Vector2f(spriteX, spriteY));
+
+		window.drawDT(sprite, window.getPositionalDepth(spriteY));
+		std::cout << "positionalDepth:" << window.getPositionalDepth(spriteY) << "\ty:" << spriteY << std::endl;
+		window.drawDT(sprite2);
+		window.drawDT(back, false);
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				window.displayDepthBuffer();
+			}
+			else
+			{
+				window.displayPostBuffer();
+			}
+		}
+
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close(); //do NOT call any opengl functions after this!
+			if (event.type == sf::Event::KeyPressed)
+			{
+				if (event.key.code == sf::Keyboard::P)
+				{
+					window.saveCapture("UserData/Captures/capture.png");
+				}
+			}
+		}
+	}
+}
+
+/*
 int main()
 {
-	sf::ContextSettings settings;
-	settings.depthBits = 24;
-	settings.stencilBits = 8;
-	settings.antialiasingLevel = 2;
-	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!", sf::Style::Close, settings);
-	glewExperimental = GL_TRUE;
-	if (glewInit() != GLEW_OK)
-	{
-		printf("Failed to initialize GLEW\n");
-		return 1;
-	}
 
+	gWrap::Window window;
+	window.recreateWindowed(800, 600);
 	//create vertex array object (VAO)
 	GLuint vertexArrayObject;
-	glGenVertexArrays(1, &vertexArrayObject);
-	glBindVertexArray(vertexArrayObject);
-
-
+	glCheck(glGenVertexArrays(1, &vertexArrayObject));
+	glCheck(glBindVertexArray(vertexArrayObject));
+	printf("vertexArrayObject: %u \n", vertexArrayObject);
 
 	static float vertices[] = {
 		//posX	posY   posZ  R     G	 B     texS  texT
-		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, //0
 		0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
 		0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
 		0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
 		-0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
 		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
 
-		-0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
+		-0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, //6
 		0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
 		0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
 		0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
 		-0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
 		-0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
 
-		-0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		-0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, //12
 		-0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
 		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
 		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
 		-0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-		-0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		-0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 
 
-		0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
+		0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, //18
 		0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
 		0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
 		0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
 		0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
 		0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
 
-		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, //24
 		0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
 		0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
 		0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
 		-0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
 		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
 
-		-0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+		-0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, //30
 		0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
 		0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
 		0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f,
 		-0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f,
-		-0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f
+		-0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f,
+
+		//-----------------------Floor vertices--------------------
+		- 1.0f, -1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, //36
+		1.0f, -1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		1.0f, 1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		-1.0f, -1.0f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f
 	};
+
 	GLuint vertexBufferObj; //creates VBO, vertex buffer object (uint holding address of buffer)
 	glGenBuffers(1, &vertexBufferObj); //generate 1 buffer with vertexBuffer as reference to it
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObj); //make vertex buffer the active array buffer
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); //allocate data to the active array buffer
 	printf("vertexBuffer: %u \n", vertexBufferObj);
-
-	static GLuint elements[] = {
-		0, 1, 2, //tri 0
-		0, 3, 1  //tri 1
-	};
-	GLuint elementBufferObj;
-	glGenBuffers(1, &elementBufferObj);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBufferObj);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
-
 	//----------------shaders-----------------------------
 
 	//declare and compile vertex shader (definition outside of main)
@@ -124,60 +209,52 @@ int main()
 	//declare and compile fragment shader
 	GLuint fragmentShader = MyGLFunctions::createShaderFromFile(GL_FRAGMENT_SHADER, "Shaders/FragmentShader.glsl");
 
-	//check shader compilation statuses
-	GLint status;
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &status);
-	if (status != GL_TRUE)
-	{
-		printf("vertexShader did not compile successfully\n");
-	}
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &status);
-	if (status != GL_TRUE)
-	{
-		printf("fragmentShader did not compile successfully\n");
-	}
-	//glGetShaderInfoLog(fragmentShader, 512, NULL, buffer);
-	//printf("%s\n", buffer);
-
-
 	//-----link the vertex and fragment shaders into a shader program---------
 	GLuint shaderProgram = glCreateProgram();
 	glAttachShader(shaderProgram, vertexShader);
 	glAttachShader(shaderProgram, fragmentShader);
 	glBindFragDataLocation(shaderProgram, 0, "outColor"); //not necessary?
-	glLinkProgram(shaderProgram); //apply changes of program
+	glLinkProgram(shaderProgram); //apply changes of program, upload shaders to gpu
 	glUseProgram(shaderProgram);
-
+	
+	
 	//specify layout of vertex data
 	GLint posAttrib = glGetAttribLocation(shaderProgram, "position");
-	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
-	glEnableVertexAttribArray(posAttrib);
+	glCheck(glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0));
+	glCheck(glEnableVertexAttribArray(posAttrib));
 	GLint colAttrib = glGetAttribLocation(shaderProgram, "inVColor");
-	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), reinterpret_cast<void*>(3 * sizeof(float)));
-	glEnableVertexAttribArray(colAttrib);
+	glCheck(glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), reinterpret_cast<void*>(3 * sizeof(float))));
+	glCheck(glEnableVertexAttribArray(colAttrib));
 	GLint texAttrib = glGetAttribLocation(shaderProgram, "texCoord");
-	glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), reinterpret_cast<void*>(6 * sizeof(float)));
-	glEnableVertexAttribArray(texAttrib);
+	glCheck(glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), reinterpret_cast<void*>(6 * sizeof(float))));
+	glCheck(glEnableVertexAttribArray(texAttrib));
+
 
 
 	//----------------texture object-------------------
 	
 	MyGL::Texture texture1;
-	texture1.loadFromFile("Textures/zachsq.jpg", 0);
-	glUniform1i(glGetUniformLocation(shaderProgram, "texSeptember"), texture1.getSamplerUnit());
+	texture1.loadFromFile("Textures/test.bmp", GL_TEXTURE5);
 	MyGL::Texture texture2;
-	texture2.loadFromFile("Textures/test2.png", 1);
-	glUniform1i(glGetUniformLocation(shaderProgram, "texPuppy"), texture2.getSamplerUnit());
+	texture2.loadFromFile("Textures/test2.png", GL_TEXTURE6);
+	glCheck(glUseProgram(shaderProgram));
+	{
+		glCheck(glUniform1i(glGetUniformLocation(shaderProgram, "texSeptember"), texture1.getSamplerUnit()));
+		glCheck(glUniform1i(glGetUniformLocation(shaderProgram, "texPuppy"), texture2.getSamplerUnit()));
+	}
+	texture1.bind();
+	texture2.bind();
 
 	//--------transformations---------------------------
 
 	glm::mat4 modelTrans;
 	modelTrans = glm::rotate(modelTrans, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-	GLint uniTrans = glGetUniformLocation(shaderProgram, "modelTrans");
-	glUniformMatrix4fv(uniTrans, 1, GL_FALSE, glm::value_ptr(modelTrans));
+	GLint uniModel = glGetUniformLocation(shaderProgram, "modelTrans");
+	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(modelTrans));
 
 	glm::mat4 viewTrans;
-	viewTrans = glm::lookAt(glm::vec3(1.2f, 1.2f, 1.2),
+	viewTrans = glm::lookAt(
+		glm::vec3(2.0f, 2.0f, 2.0f),
 		glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 0.0f, 1.0f));
 	GLint uniView = glGetUniformLocation(shaderProgram, "viewTrans");
@@ -186,6 +263,10 @@ int main()
 	glm::mat4 projTrans = glm::perspective(45.0f, 800.0f / 600.0f, 1.0f, 10.0f);
 	GLint uniProj = glGetUniformLocation(shaderProgram, "projTrans");
 	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(projTrans));
+
+	//enable openGL depth testing
+	glEnable(GL_DEPTH_TEST);
+	GLint uniAlpha = glGetUniformLocation(shaderProgram, "alpha");
 
 	
 	sf::Clock clock;
@@ -196,9 +277,8 @@ int main()
 	{
 		deltaTime = clock.getElapsedTime().asSeconds() - prevFrameTime;
 		prevFrameTime = clock.getElapsedTime().asSeconds();
-		printf("deltaTime : %f \n", deltaTime);
-		sf::Event event;
-		window.clear();
+		
+		//read input------------------------------------
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
 			rotateX += deltaTime * 180.0f;
@@ -210,20 +290,70 @@ int main()
 		}
 		modelTrans = glm::rotate(modelTrans, glm::radians(deltaTime * 90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelTrans = glm::rotate(modelTrans, glm::radians(deltaTime * rotateX), glm::vec3(1.0f, 0.0f, 0.0f));
-		glUniformMatrix4fv(uniTrans, 1, GL_FALSE, glm::value_ptr(modelTrans));
-		glUniform1f(glGetUniformLocation(shaderProgram, "size"), fabs(sinf(clock.getElapsedTime().asSeconds())));
-		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-		//draw cube
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		window.display();
+		glCheck(glUseProgram(shaderProgram));
+		{
+			glCheck(glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(modelTrans)));
+			glCheck(glUniform1f(uniAlpha, 1.0f));
+		}
+		//------------------------------------------DRAWING OPERATIONS-------------------------------
+		window.switchToPostBuffer();
+		//clear window-----------------------------------
+		window.clearDepth();
+		window.clear(255, 255, 255);
+		glCheck(glBindVertexArray(vertexArrayObject));
+		//draw cube-----------------------------
+		glCheck(glDepthMask(GL_TRUE));
+		glCheck(glEnable(GL_DEPTH_TEST));
+		glCheck(glDrawArrays(GL_TRIANGLES, 0, 36));
+		//draw floor----------------------------
+		glCheck(glDepthMask(GL_FALSE)); //don't write to depth buffer
+		glCheck(glEnable(GL_STENCIL_TEST));
+		glCheck(glStencilFunc(GL_ALWAYS, 1, 0xFF));
+		glCheck(glStencilMask(0xFF)); //allow writing to stencil buffer
+		glCheck(glClear(GL_STENCIL_BUFFER_BIT)); //clear to 0 (counts as writing to stencil buffer, mask must be set to 0xFF before this!)
+		glCheck(glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE)); //write stencil val 1 for all pixels drawn here
+		glCheck(glDrawArrays(GL_TRIANGLES, 36, 6)); //draw floor vertices
+		//draw cube reflection------------------
+		glCheck(glUniform1f(uniAlpha, 0.3f));
+		glCheck(glDepthMask(GL_TRUE));
+		glCheck(glStencilFunc(GL_EQUAL, 1, 0xFF)); //only draw reflection when stencil val is 1
+		glCheck(glStencilMask(0x00)); //don't write to stencil buffer when drawing reflection!
+		modelTrans = glm::scale(
+			glm::translate(modelTrans, glm::vec3(0.0f, 0.0f, -1.0f)),
+			glm::vec3(1.0f, 1.0f, -1.0f)
+			);
+		glCheck(glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(modelTrans)));
+		glCheck(glDrawArrays(GL_TRIANGLES, 0, 36)); //draw the actual reflection vertices
+		glCheck(glDisable(GL_STENCIL_TEST));
+		modelTrans = glm::scale(
+			glm::translate(modelTrans, glm::vec3(0.0f, 0.0f, -1.0f)),
+			glm::vec3(1.0f, 1.0f, -1.0f)
+			);
+		//---------------display stuff---------
+		//window.display();
+		//now draw post buffer-------------
+		window.displayPostBuffer();
+		
+		
+		
+		
+		
+		sf::Event event;
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				window.close(); //do NOT call any opengl functions after this!
+			if (event.type == sf::Event::KeyPressed)
+			{
+				if (event.key.code == sf::Keyboard::P)
+				{
+					window.saveCapture("UserData/Captures/capture01.png");
+				}
+			}
 		}
 	}
 
+	
 	glDeleteProgram(shaderProgram);
 	glDeleteShader(fragmentShader);
 	glDeleteShader(vertexShader);
@@ -232,3 +362,5 @@ int main()
 
 	return 0;
 }
+*/
+

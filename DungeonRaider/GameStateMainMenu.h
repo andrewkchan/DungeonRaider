@@ -4,7 +4,7 @@
 
 #include "GameState.h"
 #include "TextureLibrary.h"
-#include "Actor.h"
+#include "Entities/Actor.h"
 
 /*
 Brief: The state of the main menu of the game.
@@ -16,7 +16,6 @@ private:
 
 	sf::Event latestEvent_;
 	TextureLibrary frontEndTextures_;
-	Actor* skeleton;
 
 	void enterPlayState();
 public:

@@ -19,12 +19,9 @@ class GameState
 	*/
 protected:
 	Game* game_;
-	sf::Sprite background_;
 public:
 	GameState(Game* game = 0) : game_(game)
-	{
-		background_.setTexture(game_->sharedTextures_.getTexture("background"));
-	}
+	{}
 	virtual ~GameState() {} //obviously we don't want to delete the game
 
 	// *brief: get user input and handle it

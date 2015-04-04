@@ -1,5 +1,5 @@
 #include "PlayerController.h"
-#include <SFML/Window.hpp>
+#include "GraphicsWrappers\Window.h"
 #include <iostream>
 #include "FloatValueDisplayText.h"
 #include "Character.h"
@@ -29,16 +29,13 @@ void PlayerController::linkCharacter(Character* inputCharacter)
 {
 	Controller::linkCharacter(inputCharacter);
 
-	for (unsigned int i = 0; i < coordinateDisplay->getNumComponents(); i++)
-	{
-		(coordinateDisplay->getComponentAt(i))->setNewSubject(&inputCharacter->getTransform());
-	}
+	
 }
 void PlayerController::update(float frameTime)
 {
-	coordinateDisplay->update(frameTime);
+	
 }
-void PlayerController::drawGUIToWindow(sf::RenderWindow& window)
+void PlayerController::drawGUIToWindow(gWrap::Window& window)
 {
-	coordinateDisplay->drawToWindow(window);
+	
 }

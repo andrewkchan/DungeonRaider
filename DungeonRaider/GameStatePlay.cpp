@@ -3,7 +3,9 @@
 
 GameStatePlay::GameStatePlay(Game* game) : GameState(game)
 {
-	sf::Vector2f windowSize = sf::Vector2f(game_->window.getSize());
+	sf::Vector2f windowSize = sf::Vector2f(
+		static_cast<float>(game_->window.getWidth()), 
+		static_cast<float>(game_->window.getHeight()));
 	gameView_.setSize(windowSize);
 	guiView_.setSize(windowSize);
 
@@ -50,12 +52,14 @@ void GameStatePlay::getInput(double deltaTime)
 			guiView_.setSize(static_cast<float>(latestEvent_.size.width), static_cast<float>(latestEvent_.size.height));
 			//resize the background along with the resized window
 			//pin background to window center
-			background_.setPosition(game_->window.mapPixelToCoords(sf::Vector2i(0, 0)));
+			//background_.setPosition(game_->window.mapPixelToCoords(sf::Vector2i(0, 0)));
 			//now set background scale
+			/*
 			background_.setScale(
 				static_cast<float>(latestEvent_.size.width) / static_cast<float>(background_.getTexture()->getSize().x),
 				static_cast<float>(latestEvent_.size.height) / static_cast<float>(background_.getTexture()->getSize().y)
 				);
+			*/
 			break;
 		}
 		case sf::Event::KeyPressed:

@@ -16,5 +16,6 @@ void main()
 {
 	vColor = inVColor;
 	vTexCoord = texCoord;
-	gl_Position = projTrans * viewTrans * modelTrans * vec4(position * size, 1.0);
+	//gl_Position = projTrans * viewTrans * modelTrans * vec4(position * size, 1.0);
+	gl_Position = projTrans * viewTrans * modelTrans * vec4(position, 1.0);
 }
